@@ -1,19 +1,24 @@
 import SearchBox from "./SearchBox";
 import logo from "../assets/react.svg";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import api from "../api/api";
 
 function Header() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const { user, setUser } = useContext(AuthContext);
 
-  // 🔥 Replace this with real auth later
-  const isLoggedIn = false;
+  const logout = async () => {
+    await api.post("/logout/");
+    setUser(null);
+  };
 
   return (
     <div className="w-full flex items-center justify-between px-6 py-4 bg-sky-50 h-20 text-black relative">
       {/* Logo */}
-      <div onClick={()=>navigate("/")} className="flex items-center gap-2">
+      <div onClick={() => navigate("/")} className="flex items-center gap-2">
         <img src={logo} alt="Indolink" className="h-10" />
       </div>
 
@@ -26,45 +31,40 @@ function Header() {
           onClick={() => setOpen(!open)}
           className="text-md font-semibold text-gray-900 cursor-pointer hover:text-blue-600"
         >
-          {isLoggedIn ? "My Account ▾" : "Account ▾"}
+          {user ? "My Account ▾" : "Account ▾"}
         </div>
 
         {open && (
-          <div className="absolute z-50 right-0 mt-2 w-44 bg-white rounded-lg shadow-2xl">
-            <ul className="text-sm">
-              {/* 🔹 New Member */}
-              {!isLoggedIn && (
-                <>
-                  <li
-                    onClick={() => navigate("/login")}
-                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                  >
-                    Login
-                  </li>
-                  <li
-                    onClick={() => navigate("/signup")}
-                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer font-semibold text-blue-600"
-                  >
-                    Sign Up
-                  </li>
-                </>
-              )}
+          <div className="ml-auto flex items-center gap-4">
+            {!user ? (
+              <>
+                <span className="cursor-pointer">Login</span>
+                <span className="cursor-pointer">Signup</span>
+              </>
+            ) : (
+              <div className="relative group">
+                <div className="flex items-center gap-2 cursor-pointer">
+                  <FaUserCircle size={22} />
+                  <span>{user.username}</span>
+                </div>
 
-              {/* 🔹 Logged In User */}
-              {isLoggedIn && (
-                <>
-                  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                    Profile
-                  </li>
-                  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                {/* DROPDOWN */}
+                <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-lg hidden group-hover:block">
+                  <p className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                    My Profile
+                  </p>
+                  <p className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                     Orders
-                  </li>
-                  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-500">
+                  </p>
+                  <p
+                    onClick={logout}
+                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-500"
+                  >
                     Logout
-                  </li>
-                </>
-              )}
-            </ul>
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
