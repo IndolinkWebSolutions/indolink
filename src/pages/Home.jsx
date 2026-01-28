@@ -6,6 +6,7 @@ import About from "../components/About";
 import Services from "../components/Services";
 import FeaturedCategories from "../components/FeaturedCategory";
 import Footer from "../components/Footer";
+import Categories from "../components/Categories";
 
 function Home() {
   return (
@@ -17,6 +18,7 @@ function Home() {
       <About />
       <Services />
       <FeaturedCategories />
+      <Categories/>
       <Footer />
     </>
   );

@@ -40,7 +40,7 @@ export default function FeaturedCategoriesSlider() {
           onClick={slideLeft}
           className="hidden md:flex items-center justify-center
             absolute -left-9 top-1/2 -translate-y-1/2 z-10
-            bg-sky-400 shadow-md rounded-full p-3
+            bg-sky-200 shadow-md rounded-full p-3
             hover:bg-sky-300"
         >
           <FaChevronLeft className="text-sky-900" size={24} />
@@ -51,7 +51,7 @@ export default function FeaturedCategoriesSlider() {
           onClick={slideRight}
           className="hidden md:flex items-center justify-center
             absolute -right-9 top-1/2 -translate-y-1/2 z-10
-            bg-sky-400 shadow-md rounded-full p-3
+            bg-sky-200 shadow-md rounded-full p-3
             hover:bg-sky-300"
         >
           <FaChevronRight className="text-sky-900" size={24}/>
