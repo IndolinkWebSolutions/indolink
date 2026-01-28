@@ -14,6 +14,6 @@ export const pageVariants = {
 };
 
 export const pageTransition = {
-  duration: 0.5,
+  duration: 1.5,
   ease: "easeInOut",
 };

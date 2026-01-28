@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/react.svg";
 import signupImg from "../assets/login.jpg";
@@ -6,9 +6,42 @@ import TopBar from "./TopBar";
 import Header from "./Header";
 import { pageTransition, pageVariants } from "../pageTransition";
 import { motion } from "framer-motion";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import api from "../api/api.js";
 
 const Signup = () => {
   const navigate = useNavigate();
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [phoneNum, setPhoneNum] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      await api.post("user/signup/", {
+        email,
+        password,
+        username,
+        name,
+        phoneNum,
+      });
+
+      navigate("/");
+    } catch (err) {
+      setError(err.response?.data?.message || "Signup failed");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -41,6 +74,9 @@ const Signup = () => {
                 Create your account and explore trusted Indian sellers &
                 products.
               </p>
+              {error && (
+                <p className="text-red-500 text-sm text-center mt-2">{error}</p>
+              )}
             </div>
           </div>
 
@@ -61,33 +97,55 @@ const Signup = () => {
               Connect with verified sellers across world
             </p>
 
-            <form className="mt-6 space-y-4">
+            <form onSubmit={handleSignup} className="mt-6 space-y-4">
               <input
                 type="text"
-                placeholder="Full Name"
+                placeholder="Username"
+                onChange={(e) => setUsername(e.target.value)}
+                className="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-sky-400"
+              />
+
+              <input
+                type="text"
+                placeholder="name"
+                onChange={(e) => setName(e.target.value)}
                 className="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-sky-400"
               />
 
               <input
                 type="email"
                 placeholder="Email Address"
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-sky-400"
               />
 
               <input
                 type="tel"
                 placeholder="Phone Number"
+                onChange={(e) => setPhoneNum(e.target.value)}
                 className="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-sky-400"
               />
 
-              <input
-                type="password"
-                placeholder="Password"
-                className="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-sky-400"
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Create Password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-sky-400"
+                />
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500"
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
 
-              <button className="w-full bg-sky-500 text-white py-2 rounded-lg hover:bg-sky-600 transition">
-                Sign Up
+              <button
+                disabled={loading}
+                className="w-full bg-sky-500 text-white py-2 rounded-lg hover:bg-sky-600 transition"
+              >
+                {loading ? "Signing you in" : "Sign up"}
               </button>
             </form>
 
