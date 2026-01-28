@@ -17,7 +17,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
-  const [phoneNum, setPhoneNum] = useState("");
+  const [mobile_number, setMobileNumber] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -32,10 +32,10 @@ const Signup = () => {
         password,
         username,
         name,
-        phoneNum,
+        mobile_number,
       });
 
-      navigate("/");
+      navigate("/login");
     } catch (err) {
       setError(err.response?.data?.message || "Signup failed");
     } finally {
@@ -122,7 +122,7 @@ const Signup = () => {
               <input
                 type="tel"
                 placeholder="Phone Number"
-                onChange={(e) => setPhoneNum(e.target.value)}
+                onChange={(e) => setMobileNumber(e.target.value)}
                 className="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-sky-400"
               />
 

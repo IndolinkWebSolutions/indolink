@@ -11,7 +11,7 @@ import api from "../api/api.js";
 const Login = () => {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -22,8 +22,8 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await api.post("user/login", {
-        email,
+      const res = await api.post("user/login/", {
+        username,
         password,
       });
       console.log(res);
@@ -70,11 +70,11 @@ const Login = () => {
 
             <form onSubmit={handleSubmit} className="mt-6 space-y-4">
               <div>
-                <label className="text-sm text-gray-600">Email</label>
+                <label className="text-sm text-gray-600">Username</label>
                 <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   required
                   className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-sky-400"
                 />
