@@ -18,11 +18,11 @@ export default function FeaturedCategoriesSlider() {
   const sliderRef = useRef(null);
 
   const slideLeft = () => {
-    sliderRef.current.scrollBy({ left: -300, behavior: "smooth" });
+    sliderRef.current.scrollBy({ left: -400, behavior: "smooth" });
   };
 
   const slideRight = () => {
-    sliderRef.current.scrollBy({ left: 300, behavior: "smooth" });
+    sliderRef.current.scrollBy({ left: 400, behavior: "smooth" });
   };
 
   return (
@@ -39,7 +39,7 @@ export default function FeaturedCategoriesSlider() {
         <button
           onClick={slideLeft}
           className="hidden md:flex items-center justify-center
-            absolute -left-9 top-1/2 -translate-y-1/2 z-10
+            absolute -left-13 top-1/2 -translate-y-1/2 z-10
             bg-sky-200 shadow-md rounded-full p-3
             hover:bg-sky-300"
         >
@@ -91,7 +91,7 @@ export default function FeaturedCategoriesSlider() {
               </div>
 
               {/* Hover Buttons */}
-              <div className="absolute bottom-4 left-0 right-0
+              <div className="absolute bottom-2 right-1
                 flex justify-center gap-3
                 opacity-0 group-hover:opacity-100
                 transition-opacity duration-300"

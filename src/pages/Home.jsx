@@ -7,6 +7,8 @@ import Services from "../components/Services";
 import FeaturedCategories from "../components/FeaturedCategory";
 import Footer from "../components/Footer";
 import Categories from "../components/Categories";
+import Contact from "../components/Contact";
+import Testimonials from "../components/Testimonials";
 
 function Home() {
   return (
@@ -19,6 +21,8 @@ function Home() {
       <Services />
       <FeaturedCategories />
       <Categories/>
+      <Testimonials/>
+      <Contact/>
       <Footer />
     </>
   );
