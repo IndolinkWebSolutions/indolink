@@ -8,6 +8,7 @@ import { pageTransition, pageVariants } from "../pageTransition";
 import { motion } from "framer-motion";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import api from "../api/api.js";
+import Navbar from "./Navbar.jsx";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ const Signup = () => {
     <>
       <TopBar />
       <Header />
-
+      <Navbar />
       <motion.div
         variants={pageVariants}
         initial="initial"

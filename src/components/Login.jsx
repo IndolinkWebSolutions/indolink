@@ -7,6 +7,7 @@ import loginImg from "../assets/login.jpg";
 import { pageTransition, pageVariants } from "../pageTransition";
 import { motion } from "framer-motion";
 import api from "../api/api.js";
+import Navbar from "./Navbar.jsx";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ const Login = () => {
     <>
       <TopBar />
       <Header />
-
+      <Navbar />
       <motion.div
         variants={pageVariants}
         initial="initial"
@@ -118,6 +119,21 @@ const Login = () => {
               alt="login"
               className="h-full w-full object-cover"
             />
+
+            {/* Overlay Content */}
+            <div className="absolute inset-0 bg-sky-600/60 flex flex-col items-center justify-center text-center px-8">
+              <h2 className="text-3xl font-bold text-white mb-2">
+                Welcome Back to Indolink Exports
+              </h2>
+              <p className="text-sm text-gray-200 max-w-xs">
+                Log in to connect with verified Indian exporters and global
+                buyers.
+              </p>
+
+              {error && (
+                <p className="text-red-500 text-sm text-center mt-2">{error}</p>
+              )}
+            </div>
           </div>
         </div>
       </motion.div>
