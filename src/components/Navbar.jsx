@@ -6,6 +6,10 @@ import {
   FaTshirt,
 } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import file from "../assets/file.png";
+import shield from "../assets/shield.png";
+import refund from "../assets/refund.png";
+import box from "../assets/box.png";
 
 function Navbar() {
   const categories = [
@@ -174,11 +178,9 @@ function Navbar() {
   const [open, setOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeSub, setActiveSub] = useState(null);
-  const [catPos, setCatPos] = useState(0);
-  const [subPos, setSubPos] = useState(0);
 
   return (
-    <nav className="w-full bg-sky-500 text-white px-6 relative">
+    <nav className="w-full hidden md:flex bg-sky-500 text-white px-6 relative">
       <div className="flex items-center gap-6 text-sm font-medium py-3">
         {/* ALL CATEGORIES */}
         <div
@@ -194,96 +196,67 @@ function Navbar() {
             ALL CATEGORIES {open ? <FaChevronDown /> : <FaChevronRight />}
           </span>
 
-          {/* LEVEL 1 */}
           {open && (
-            <div className="absolute left-0 top-full bg-gray-100 text-black shadow-lg w-64 z-50 border-none">
-              {categories.map((cat, i) => (
-                <div
-                  key={i}
-                  onMouseEnter={(e) => {
-                    setActiveCategory(cat);
-                    setActiveSub(null); // reset child when parent changes
-
-                    // capture vertical position of hovered row
-                    const rect = e.currentTarget.getBoundingClientRect();
-                    const parentRect =
-                      e.currentTarget.parentElement.getBoundingClientRect();
-
-                    setCatPos(rect.top - parentRect.top);
-                  }}
-                  className={`flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-blue-50 ${
-                    activeCategory?.name === cat.name &&
-                    "bg-blue-100 text-blue-600"
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    {cat.icon}
-                    <span>{cat.name}</span>
-                  </div>
-
-                  {activeCategory?.name === cat.name ? (
-                    <FaChevronDown className="text-sm" />
-                  ) : (
-                    <FaChevronRight className="text-sm" />
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* LEVEL 2 */}
-          {activeCategory && (
-            <div
-              className="absolute left-64 top-0 bg-white text-black shadow-lg w-64 z-50 border"
-              style={{ top: catPos }}
-            >
-              {activeCategory?.sub?.map((sub, i) => (
-                <div
-                  key={i}
-                  onMouseEnter={(e) => {
-                    setActiveSub(sub);
-
-                    const rect = e.currentTarget.getBoundingClientRect();
-                    const parentRect =
-                      e.currentTarget.parentElement.getBoundingClientRect();
-
-                    setSubPos(rect.top - parentRect.top);
-                  }}
-                  className={`flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-blue-50 ${
-                    activeSub?.name === sub.name && "bg-blue-100 text-blue-600"
-                  }`}
-                >
-                  <span>{sub.name}</span>
-                  {activeSub?.name === sub.name ? (
-                    <FaChevronDown />
-                  ) : (
+            <div className="absolute left-0 top-full bg-[#0f172a] shadow-xl z-50 w-[900px] p-4 grid grid-cols-3 gap-4">
+              {/* COLUMN 1 – CATEGORY */}
+              <div className="border-r">
+                {categories.map((cat, i) => (
+                  <div
+                    key={i}
+                    onMouseEnter={() => {
+                      setActiveCategory(cat);
+                      setActiveSub(null);
+                    }}
+                    className={`px-4 py-3 cursor-pointer flex justify-between hover:bg-blue-50 ${
+                      activeCategory?.name === cat.name &&
+                      "bg-blue-100 text-blue-600"
+                    }`}
+                  >
+                    {cat.name}
                     <FaChevronRight />
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
+                  </div>
+                ))}
+              </div>
 
-          {/* LEVEL 3 */}
-          {activeSub && (
-            <div
-              className="absolute left-[32rem]  bg-white text-black shadow-lg w-64 z-50 border"
-              style={{ transform: `translateY(${subPos}px)` }}
-            >
-              {activeSub?.child?.map((item, i) => (
-                <div
-                  key={i}
-                  className="px-4 py-2 cursor-pointer hover:bg-gray-100 text-sm"
-                >
-                  {item}
-                </div>
-              ))}
+              {/* COLUMN 2 – SUB CATEGORY */}
+              <div className="border-r">
+                {activeCategory?.sub?.map((sub, i) => (
+                  <div
+                    key={i}
+                    onMouseEnter={() => setActiveSub(sub)}
+                    className={`px-4 py-3 cursor-pointer hover:bg-blue-50 ${
+                      activeSub?.name === sub.name &&
+                      "bg-blue-100 text-blue-600"
+                    }`}
+                  >
+                    {sub.name}
+                  </div>
+                ))}
+              </div>
+
+              {/* COLUMN 3 – PRODUCTS */}
+              <div className="max-h-[350px] overflow-y-auto">
+                {activeSub?.child?.map((item, i) => (
+                  <div
+                    key={i}
+                    className="px-4 py-2 text-sm cursor-pointer hover:bg-gray-600"
+                  >
+                    {item}
+                  </div>
+                ))}
+
+                {!activeSub && (
+                  <p className="text-gray-400 text-sm px-4">
+                    Select a sub-category
+                  </p>
+                )}
+              </div>
             </div>
           )}
-        </div>
+        </div>  
 
         {/* Other Menu Items */}
-        <span className="cursor-pointer">OUR FEATURES</span>
+        {/* <span className="cursor-pointer">OUR FEATURES</span> */}
         <div className="relative group">
           {/* TRIGGER */}
           <span className="cursor-pointer flex items-center gap-2 text-white">
@@ -304,7 +277,7 @@ function Navbar() {
           </span>
 
           {/* DROPDOWN */}
-          <div className="absolute left-50 -translate-x-1/2 mt-4 w-[900px] bg-[#0f172a] rounded-xl shadow-2xl p-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+          <div className="absolute left-80 -translate-x-1/2 mt-4 w-[900px] bg-[#0f172a] rounded-xl shadow-2xl p-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
             {/* HEADER */}
             <div className="flex items-center gap-4 mb-8">
               <img
@@ -325,22 +298,22 @@ function Navbar() {
               {[
                 {
                   title: "Terms and Conditions",
-                  icon: "📄",
+                  image: file,
                   route: "/terms",
                 },
                 {
                   title: "Privacy Policy",
-                  icon: "🔐",
+                  image: shield,
                   route: "/privacy",
                 },
                 {
                   title: "Refund Policy",
-                  icon: "🔄",
+                  imgage: refund,
                   route: "/refund",
                 },
                 {
                   title: "Shipping Policy",
-                  icon: "🚚",
+                  image: box,
                   route: "/shipping",
                 },
               ].map((item, idx) => (
@@ -349,7 +322,7 @@ function Navbar() {
                   onClick={() => navigate(item.route)}
                   className="cursor-pointer bg-[#020617] border border-gray-800 rounded-xl p-6 flex flex-col items-center text-center gap-3 hover:border-blue-500 hover:scale-[1.03] transition"
                 >
-                  <span className="text-4xl">{item.icon}</span>
+                  <img src={item.image} alt="" className="w-10 h-10" />
                   <h4 className="text-gray-200 font-semibold">{item.title}</h4>
                 </div>
               ))}
@@ -358,7 +331,7 @@ function Navbar() {
         </div>
 
         <div className="relative group">
-          <span className="cursor-pointer flex items-center gap-3 font-semibold tracking-wide text-white hover:text-blue-600 transition">
+          <span className="cursor-pointer flex items-center gap-3 font-semibold  tracking-wide text-white transition">
             SELLER CENTRAL
             <svg
               className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180"
@@ -376,15 +349,18 @@ function Navbar() {
           </span>
 
           {/* Dropdown */}
-          <div className="absolute left-1/2 -translate-x-1/2 mt-3 w-[650px] bg-gray-200 rounded shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-            <ul className="flex justify-between px-9 py-6 text-base text-gray-900 ">
+          <div className="absolute left-1/2 -translate-x-1/2 mt-3 w-[650px]  bg-[#0f172a] rounded shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+            <ul className="flex justify-between px-9 py-6 text-base text-gray-200 ">
               <li
                 onClick={() => navigate("/about")}
                 className="cursor-pointer max-w-[150px] hover:text-blue-400 transition border-r"
               >
                 What is Indolink Exports?
               </li>
-              <li className="cursor-pointer max-w-[150px] hover:text-blue-400 transition border-r">
+              <li
+                onClick={() => navigate("/membership")}
+                className="cursor-pointer max-w-[150px] hover:text-blue-400 transition border-r"
+              >
                 Membership Program
               </li>
               <li

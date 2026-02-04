@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import DNavbar from "./DNavbar";
+import { useNavigate } from "react-router-dom";
 
 const faqs = [
   {
@@ -26,6 +27,7 @@ const faqs = [
 ];
 
 const Help = () => {
+  const navigate = useNavigate();
   const [openIndex, setOpenIndex] = useState(null);
 
   const toggleFAQ = (index) => {
@@ -35,10 +37,13 @@ const Help = () => {
   return (
     <div className="flex h-screen bg-gray-100">
       {/* SIDEBAR */}
-      <Sidebar />
+     <div className="hidden md:block">
+        <Sidebar />
+      </div>
+
 
       {/* RIGHT CONTENT */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1">
         {/* TOP NAVBAR */}
         <DNavbar />
 
@@ -116,7 +121,7 @@ const Help = () => {
             <p className="text-gray-600 mb-4">
               Contact our support team and we’ll get back to you shortly.
             </p>
-            <button className="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+            <button onClick={()=>navigate("/contact")} className="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
               Contact Support
             </button>
           </div>

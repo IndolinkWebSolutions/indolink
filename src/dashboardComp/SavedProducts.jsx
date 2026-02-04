@@ -1,20 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import DNavbar from "./DNavbar";
+import { getSavedProducts } from "../api/index.js";
+import AddProductModal from "../dashboardComp/AddProductModel.jsx";
 
 const SavedProducts = () => {
-  return (
-    <div className="flex h-screen bg-gray-100">
-      {/* SIDEBAR */}
-      <Sidebar />
+  const [products, setProducts] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
-      {/* RIGHT CONTENT */}
-      <div className="flex-1 flex flex-col">
+  const fetchProducts = async () => {
+    try {
+      const res = await getSavedProducts();
+      setProducts(res.data);
+    } catch (err) {
+      console.error(err || "Can't fetch the products");
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  return (
+    <div className="flex h-screen">
+      <div className="hidden md:block">
+        <Sidebar />
+      </div>
+
+      <div className="flex-1">
         <DNavbar />
 
-        {/* PAGE CONTENT */}
         <div className="p-6 overflow-auto">
-          <h1 className="text-2xl font-semibold mb-6">Saved Products</h1>
+          <div className="flex justify-between items-center">
+            <h1 className="text-2xl font-semibold mb-6">Products</h1>
+            <button
+              onClick={() => setShowModal(true)}
+              className="bg-black text-white px-4 py-2 font-bold"
+            >
+              + Add Product
+            </button>
+          </div>
 
           <div className="bg-white rounded-xl shadow-md overflow-hidden">
             <table className="w-full text-left">
@@ -27,50 +52,36 @@ const SavedProducts = () => {
               </thead>
 
               <tbody className="text-sm">
-                <tr className="border-b hover:bg-blue-50 transition">
-                  <td className="p-4 font-medium">Stainless Steel Screws</td>
-                  <td className="p-4">
-                    <span className="px-3 py-1 rounded-full text-xs bg-blue-100 text-blue-700">
-                      Hardware
-                    </span>
-                  </td>
-                  <td className="p-4 text-gray-600">
-                    High quality stainless steel screws.
-                  </td>
-                </tr>
-
-                <tr className="border-b hover:bg-blue-50 transition">
-                  <td className="p-4 font-medium">Plastic Components</td>
-                  <td className="p-4">
-                    <span className="px-3 py-1 rounded-full text-xs bg-purple-100 text-purple-700">
-                      Plastics
-                    </span>
-                  </td>
-                  <td className="p-4 text-gray-600">
-                    Durable industrial plastic parts.
-                  </td>
-                </tr>
-
-                <tr className="hover:bg-blue-50 transition">
-                  <td className="p-4 font-medium">Organic Turmeric</td>
-                  <td className="p-4">
-                    <span className="px-3 py-1 rounded-full text-xs bg-orange-100 text-orange-700">
-                      Spices
-                    </span>
-                  </td>
-                  <td className="p-4 text-gray-600">
-                    Premium export-quality turmeric powder.
-                  </td>
-                </tr>
+                {products.lenghth > 0 ? (
+                  products.map((p) => (
+                    <tr key={p._id} className="border-b hover:bg-blue-50">
+                      <td className="p-4 font-medium">{p.name}</td>
+                      <td className="p-4">
+                        <span className="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-700">
+                          {p.category}
+                        </span>
+                      </td>
+                      <td className="p-4 text-gray-600">{p.description}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="3" className="p-8 text-center text-gray-500">
+                      No products found. Click <b>“Add Product”</b> to get
+                      started.
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
 
-          {/* Helper text */}
-          <p className="text-sm text-gray-500 mt-4">
-            These products are saved based on your business profile and lead
-            activity.
-          </p>
+          {showModal && (
+            <AddProductModal
+              onClose={() => setShowModal(false)}
+              onAdded={fetchProducts}
+            />
+          )}
         </div>
       </div>
     </div>

@@ -1,31 +1,31 @@
 import SearchBox from "./SearchBox";
-import logo from "../assets/react.svg";
+import logo from "../assets/logo.png";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import api from "../api/api";
 import { FaUserCircle } from "react-icons/fa";
+import { logout } from "../api";
 
 function Header() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const { user, setUser } = useContext(AuthContext);
 
-  const logout = async () => {
-    await api.post("/logout/");
+  const handlelogout = async () => {
+    await logout();
     setUser(null);
     setOpen(false);
     navigate("/");
   };
 
   return (
-    <header className="w-full flex items-center justify-between px-6 py-4 bg-sky-50 h-20 relative">
+    <header className="w-full flex md:flex-row items-center justify-between px-6 py-4 bg-sky-50 h-20 relative">
       {/* Logo */}
       <div
         onClick={() => navigate("/")}
         className="flex items-center gap-2 cursor-pointer"
       >
-        <img src={logo} alt="Indolink" className="h-10" />
+        <img src={logo} alt="Indolink" className="md:h-40 md:w-70 w-20" />
       </div>
 
       {/* Search */}
@@ -93,7 +93,7 @@ function Header() {
                 </p>
 
                 <p
-                  onClick={logout}
+                  onClick={handlelogout}
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-500"
                 >
                   Logout

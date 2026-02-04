@@ -44,7 +44,7 @@ const Dboard = () => {
           </div>
 
           {/* RIGHT: COMPANY PROFILE */}
-          <div className="bg-white rounded-lg h-[400px] shadow p-6 lg:col-span-2">
+          <div className="bg-white rounded-lg md:h-[400px] h-[500px] shadow p-6 lg:col-span-2">
             <h2 className="font-semibold mb-4">Company Profile</h2>
 
             <div className="space-y-4">

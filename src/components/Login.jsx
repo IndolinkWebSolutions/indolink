@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/react.svg";
+import logo from "../assets/logo.png";
 import TopBar from "../components/TopBar";
 import Header from "../components/Header";
 import loginImg from "../assets/login.jpg";
 import { pageTransition, pageVariants } from "../pageTransition";
 import { motion } from "framer-motion";
-import api from "../api/api.js";
 import Navbar from "./Navbar.jsx";
+import { login } from "../api/index.js";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await api.post("user/login/", {
+      const res = await login({
         username,
         password,
       });
@@ -51,14 +51,14 @@ const Login = () => {
         transition={pageTransition}
         className="pt-20 flex items-center justify-center bg-gray-50 px-4"
       >
-        <div className="w-full max-w-5xl rounded-2xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
+        <div className="w-full p-10 md:p-0 max-w-5xl rounded-2xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
           {/* LEFT */}
-          <div className="p-8 md:p-12 bg-white">
+          <div className=" md:p-12 bg-white">
             <div
               onClick={() => navigate("/")}
-              className="flex justify-center mb-4 cursor-pointer"
+              className="flex justify-center  cursor-pointer"
             >
-              <img src={logo} alt="logo" className="h-12" />
+              <img src={logo} alt="logo" className="h-32" />
             </div>
 
             <h2 className="text-2xl font-bold text-center text-gray-800">

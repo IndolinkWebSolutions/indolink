@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/react.svg";
+import logo from "../assets/logo.png";
 import signupImg from "../assets/login.jpg";
 import TopBar from "./TopBar";
 import Header from "./Header";
@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import api from "../api/api.js";
 import Navbar from "./Navbar.jsx";
+import { signup } from "../api/index.js";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      await api.post("user/signup/", {
+      await signup({
         email,
         password,
         username,
@@ -38,7 +39,9 @@ const Signup = () => {
 
       navigate("/login");
     } catch (err) {
-      setError(err.response?.data?.message || "Signup failed");
+      setError(
+        err.response?.data?.message || "Signup failed, please try again!",
+      );
     } finally {
       setLoading(false);
     }
@@ -86,15 +89,15 @@ const Signup = () => {
             {/* Logo */}
             <div
               onClick={() => navigate("/")}
-              className="flex justify-center mb-4 cursor-pointer"
+              className="flex justify-center cursor-pointer"
             >
-              <img src={logo} alt="logo" className="h-12 object-contain" />
+              <img src={logo} alt="logo" className="h-24 object-cover" />
             </div>
 
             <h2 className="text-2xl font-bold text-center text-gray-800">
               Create Account ✨
             </h2>
-            <p className="text-sm text-center text-gray-500 mt-1">
+            <p className="text-sm text-center text-gray-500">
               Connect with verified sellers across world
             </p>
 

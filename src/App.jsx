@@ -12,6 +12,11 @@ import Profile from "./dashboardComp/Profile";
 import ContactPage from "./pages/ContactPage";
 import AboutPage from "./pages/AboutPage";
 import FAQ from "./components/FAQ";
+import TermsnCondition from "./components/TermsnCondition";
+import Privacy from "./components/Privacy";
+import Refund from "./components/Refund";
+import Shipping from "./components/Shipping";
+import Membership from "./components/Membership";
 
 function App() {
   return (
@@ -23,6 +28,12 @@ function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/faq" element={<FAQ />} />
+        <Route path="/terms" element={<TermsnCondition/>}/>
+        <Route path="/privacy" element={<Privacy/>}/>
+        <Route path="/refund" element={<Refund/>}/>
+        <Route path="/shipping" element={<Shipping/>}/>
+        <Route path="/membership" element={<Membership/>}/>
+
 
         {/* dashboard */}
         <Route path="/dashboard" element={<Dashboard />} />

@@ -4,12 +4,14 @@ import DNavbar from "./DNavbar";
 
 const Leads = () => {
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen">
       {/* SIDEBAR */}
-      <Sidebar />
+      <div className="hidden md:block">
+        <Sidebar />
+      </div>
 
       {/* RIGHT CONTENT */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1">
         <DNavbar />
 
         {/* PAGE CONTENT */}
