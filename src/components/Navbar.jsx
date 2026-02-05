@@ -253,7 +253,7 @@ function Navbar() {
               </div>
             </div>
           )}
-        </div>  
+        </div>
 
         {/* Other Menu Items */}
         {/* <span className="cursor-pointer">OUR FEATURES</span> */}

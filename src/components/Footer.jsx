@@ -18,7 +18,9 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6 py-14 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
         {/* LOGO & ABOUT */}
         <div>
-          <h2 className="text-2xl font-bold text-white mb-3">Indolink</h2>
+          <h2 className="text-2xl font-bold text-white mb-3">
+            Indolink Web Solutions Pvt. Ltd.
+          </h2>
           <p className="text-sm text-gray-400 leading-relaxed">
             Indolink Web Solutions helps businesses grow with smart digital
             marketing, advertising, and lead generation services.
@@ -47,8 +49,8 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link to="/testimonials" className={linkClass}>
-                Testimonials
+              <Link to="/login" className={linkClass}>
+                My Account
               </Link>
             </li>
             <li>
@@ -66,8 +68,8 @@ const Footer = () => {
           </h3>
           <ul className="space-y-2">
             <li>
-              <Link to="/advertise" className={linkClass}>
-                Advertise With Us
+              <Link to="/privacy" className={linkClass}>
+                Privacy Policy
               </Link>
             </li>
             <li>
@@ -76,13 +78,8 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link to="/banner-advertisement" className={linkClass}>
-                Banner Ads
-              </Link>
-            </li>
-            <li>
-              <Link to="/post-requirement" className={linkClass}>
-                Post Requirement
+              <Link to="/terms" className={linkClass}>
+                Terms & Conditions
               </Link>
             </li>
           </ul>
@@ -101,26 +98,33 @@ const Footer = () => {
             </li>
             <li className="flex items-center gap-2">
               <FaPhone className="text-orange-400" />
-              +91 98765 43210
+              011 46572483
             </li>
             <li className="flex items-center gap-2">
               <FaEnvelope className="text-orange-400" />
-              info@indolink.com
+              info@indolinkwebsolutions.com
             </li>
           </ul>
 
           {/* SOCIAL ICONS */}
           <div className="flex gap-4 mt-5 text-lg">
-            <a href="#" className="hover:text-blue-500 transition">
+            <a
+              href="https://www.facebook.com/profile.php?id=61579598435368"
+              className="hover:text-blue-500 transition"
+            >
               <FaFacebookF />
             </a>
-            <a href="#" className="hover:text-gray-400 transition">
-              <FaXTwitter />
-            </a>
-            <a href="#" className="hover:text-blue-400 transition">
+
+            <a
+              href="https://www.linkedin.com/company/indolink-web-solutions"
+              className="hover:text-blue-400 transition"
+            >
               <FaLinkedinIn />
             </a>
-            <a href="#" className="hover:text-pink-500 transition">
+            <a
+              href="https://www.instagram.com/indolinkwebsolutions"
+              className="hover:text-pink-500 transition"
+            >
               <FaInstagram />
             </a>
           </div>
@@ -131,14 +135,6 @@ const Footer = () => {
       <div className="border-t border-gray-700 py-4">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-2 text-sm text-gray-400">
           <p>© Indolink Web Solution Pvt. Ltd. All rights reserved.</p>
-          <div className="flex gap-4">
-            <Link to="/privacy-policy" className={linkClass}>
-              Privacy Policy
-            </Link>
-            <Link to="/terms" className={linkClass}>
-              Terms & Conditions
-            </Link>
-          </div>
         </div>
       </div>
     </footer>

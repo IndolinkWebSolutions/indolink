@@ -8,6 +8,7 @@ import { pageTransition, pageVariants } from "../pageTransition";
 import { motion } from "framer-motion";
 import Navbar from "./Navbar.jsx";
 import { login } from "../api/index.js";
+import Footer from "./Footer.jsx";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ const Login = () => {
         animate="animate"
         exit="exit"
         transition={pageTransition}
-        className="pt-20 flex items-center justify-center bg-gray-50 px-4"
+        className="pt-20 mb-30 flex items-center justify-center bg-gray-50 px-4"
       >
         <div className="w-full p-10 md:p-0 max-w-5xl rounded-2xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
           {/* LEFT */}
@@ -137,6 +138,7 @@ const Login = () => {
           </div>
         </div>
       </motion.div>
+      <Footer/>
     </>
   );
 };

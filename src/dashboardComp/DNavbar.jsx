@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { HiMenuAlt2, HiX } from "react-icons/hi";
+import { HiMenuAlt2, HiX, HiHome } from "react-icons/hi";
 import Sidebar from "./Sidebar";
 import { useNavigate } from "react-router-dom";
 
@@ -11,17 +11,37 @@ const DNavbar = () => {
   return (
     <>
       {/* NAVBAR */}
-      <div className="flex justify-between items-center h-[90px] px-6 border-b">
-        {/* Hamburger (mobile only) */}
-        <button className="md:hidden text-2xl" onClick={() => setOpen(true)}>
-          <HiMenuAlt2 />
-        </button>
+      <div className="flex items-center justify-between h-[90px] px-6 border-b">
 
-        <h1 className="text-xl md:text-3xl font-semibold hidden md:block">
-          Manage Your Profile
-        </h1>
+        {/* LEFT SIDE */}
+        <div className="flex items-center gap-3">
+          {/* Home Icon */}
+          <button
+            onClick={() => navigate("/")}
+            className="text-2xl text-gray-700 hover:text-sky-600 transition"
+          >
+            <HiHome />
+          </button>
 
-        <div onClick={()=>navigate("/profile")} className="w-10 h-10 rounded-full bg-sky-600 text-white flex items-center justify-center font-bold">
+          {/* Hamburger (mobile only) */}
+          <button
+            className="md:hidden text-2xl"
+            onClick={() => setOpen(true)}
+          >
+            <HiMenuAlt2 />
+          </button>
+
+          {/* Title (desktop only) */}
+          <h1 className="hidden md:block text-3xl font-semibold ml-2">
+            Manage Your Profile
+          </h1>
+        </div>
+
+        {/* RIGHT SIDE */}
+        <div
+          onClick={() => navigate("/profile")}
+          className="w-10 h-10 rounded-full bg-sky-600 text-white flex items-center justify-center font-bold cursor-pointer"
+        >
           {userName[0]}
         </div>
       </div>
@@ -36,9 +56,9 @@ const DNavbar = () => {
           />
 
           {/* sidebar */}
-          <div className="absolute left-0 top-0 h-full w-[250px]">
+          <div className="absolute left-0 top-0 h-full w-[250px] bg-gray-950">
             <button
-              className="text-white absolute top-8 right-2 text-2xl"
+              className="text-white absolute top-6 right-3 text-2xl"
               onClick={() => setOpen(false)}
             >
               <HiX />

@@ -25,7 +25,7 @@ function Header() {
         onClick={() => navigate("/")}
         className="flex items-center gap-2 cursor-pointer"
       >
-        <img src={logo} alt="Indolink" className="md:h-40 md:w-70 w-20" />
+        <img src={logo} alt="Indolink" className="md:h-40 md:w-70 w-50" />
       </div>
 
       {/* Search */}

@@ -10,6 +10,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import api from "../api/api.js";
 import Navbar from "./Navbar.jsx";
 import { signup } from "../api/index.js";
+import Footer from "./Footer.jsx";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ const Signup = () => {
         animate="animate"
         exit="exit"
         transition={pageTransition}
-        className="pt-20 flex items-center justify-center bg-gray-50 px-4"
+        className="pt-20 mb-30 flex items-center justify-center bg-gray-50 px-4"
       >
         <div className="w-full max-w-5xl rounded-2xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
           {/* LEFT — IMAGE */}
@@ -165,6 +166,7 @@ const Signup = () => {
           </div>
         </div>
       </motion.div>
+      <Footer/>
     </>
   );
 };
