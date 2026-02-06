@@ -78,59 +78,38 @@ const AboutPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                title: "Website Designing",
-                desc: "Modern, Responsive & Professional Website UI/UX",
-                items: [
-                  "Dynamic Website Designing",
-                  "E-commerce Website Designing",
-                  "Static Website Designing",
-                ],
+                title: "Product Sourcing & Export",
+                description:
+                  "We help buyers source high-quality products directly from verified Indian manufacturers and exporters, ensuring competitive pricing and reliable supply.",
               },
               {
-                title: "Web Development",
-                desc: "Custom & Scalable Web Solutions",
-                items: [
-                  "Flash Website Design",
-                  "Customize Website Designing",
-                  "Mobile Website Designing",
-                ],
+                title: "Quality Inspection & Compliance",
+                description:
+                  "Our team ensures products meet international quality standards, certifications, and export regulations before shipment.",
               },
               {
-                title: "SEO & Growth",
-                desc: "Rank Higher & Grow Faster",
-                items: [
-                  "SEO Services",
-                  "Development Services",
-                  "Domain Name Registration",
-                ],
+                title: "Logistics & Shipping Support",
+                description:
+                  "We provide end-to-end logistics assistance including packaging, documentation, customs clearance, and global shipping coordination.",
               },
               {
-                title: "Marketing Solutions",
-                desc: "Digital Presence That Converts",
-                items: [
-                  "MarketPlace Listing",
-                  "Web Hosting",
-                  "Digital Marketing",
-                ],
+                title: "Buyer–Seller Connectivity",
+                description:
+                  "We connect global buyers with trusted Indian exporters through a secure and transparent platform, simplifying international trade.",
               },
             ].map((card, idx) => (
               <div key={idx} className="perspective h-[260px]">
                 <div className="relative w-full h-full transform-style transition-transform duration-700 hover:rotate-y-180">
                   {/* FRONT */}
-                  <div className="absolute inset-0 bg-gray-900 text-white rounded-xl p-6 backface-hidden flex flex-col justify-center">
-                    <h3 className="text-xl font-semibold mb-3">{card.title}</h3>
-                    <p className="text-gray-300 text-sm">{card.desc}</p>
+                  <div className="absolute inset-0 bg-gray-900 text-white rounded-xl p-6 backface-hidden flex items-center justify-center text-center">
+                    <h3 className="text-xl font-semibold">{card.title}</h3>
                   </div>
 
                   {/* BACK */}
-                  <div className="absolute inset-0 bg-gray-500 rounded-xl p-6 backface-hidden rotate-y-180">
-                    <ul className="space-y-3">
-                      {card.items.map((item, i) => (
-                        <li key={i} className="text-gray-200 font-medium">
-                          • {item}
-                        </li>
-                      ))}
-                    </ul>
+                  <div className="absolute inset-0 bg-gray-500 rounded-xl p-6 backface-hidden rotate-y-180 flex items-center">
+                    <p className="text-gray-100 leading-relaxed">
+                      {card.description}
+                    </p>
                   </div>
                 </div>
               </div>
