@@ -1,32 +1,77 @@
-import { Children, createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import api from "../api/api";
 
+export const AuthContext = createContext();
 
-export const AuthContext= createContext();
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-export const AuthProvider = ({children}) =>{
-    const [user,setUser]=useState(null);
-    const [loading,setLoading]= useState(true);
+  const loadUser = async () => {
+    const token = localStorage.getItem("access");
 
-    const loadUser = async ()=>{
-        try {
-            const res = await api.get("/dashboard");
-            setUser(res.data.user)
-        } catch {
-            setUser(null)
-        }
-        finally{
-            setLoading(false)
-        }
+    if (!token) {
+      setUser(null);
+      setLoading(false);
+      return;
     }
 
-    useEffect(()=>{
-        loadUser();
-    },[])
+    try {
+      const res = await api.get("/user/me/");
+      setUser(res.data);
+    } catch (err) {
+      setUser(null);
+      localStorage.removeItem("access");
+      localStorage.removeItem("refresh");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-return (
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  return (
     <AuthContext.Provider value={{ user, setUser, loading }}>
       {children}
     </AuthContext.Provider>
-)
+  );
 };
+
+
+
+
+
+// import { Children, createContext, useEffect, useState } from "react";
+// import api from "../api/api";
+
+
+// export const AuthContext= createContext();
+
+// export const AuthProvider = ({children}) =>{
+//     const [user,setUser]=useState(null);
+//     const [loading,setLoading]= useState(true);
+
+//     const loadUser = async ()=>{
+//         try {
+//             const res = await api.get("/dashboard");
+//             setUser(res.data.user)
+//         } catch {
+//             setUser(null)
+//         }
+//         finally{
+//             setLoading(false)
+//         }
+//     }
+
+//     useEffect(()=>{
+//         loadUser();
+//     },[])
+
+// return (
+//     <AuthContext.Provider value={{ user, setUser, loading }}>
+//       {children}
+//     </AuthContext.Provider>
+// )
+// };

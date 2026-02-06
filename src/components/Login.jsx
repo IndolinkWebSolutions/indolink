@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import TopBar from "../components/TopBar";
@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import Navbar from "./Navbar.jsx";
 import { login } from "../api/index.js";
 import Footer from "./Footer.jsx";
+import { AuthContext } from "../context/AuthContext.jsx";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -17,27 +18,41 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+ const { user, setUser, loadUser } = useContext(AuthContext);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
 
-    try {
-      const res = await login({
-        username,
-        password,
-      });
-      console.log(res);
 
-      // Redirect after login
-      navigate("/");
-    } catch (err) {
-      setError(err.response?.data?.message || "Invalid email or password");
-    } finally {
-      setLoading(false);
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  setError("");
+  setLoading(true);
+
+  try {
+    const res = await login({
+      username,
+      password,
+    });
+
+    // save tokens
+    localStorage.setItem("access", res.data.access);
+    localStorage.setItem("refresh", res.data.refresh);
+
+    // 🔥 NOW fetch authenticated user
+    await loadUser();
+
+  } catch (err) {
+    setError(err.response?.data?.error || "Invalid username or password");
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard");
     }
-  };
+  }, [user]);
 
   return (
     <>

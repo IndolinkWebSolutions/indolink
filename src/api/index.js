@@ -12,12 +12,12 @@ export const getSavedProducts = () => {
 
 // GET profile
 export const getProfile = () => {
-  return api.get("/user/profile");
+  return api.get("/user/me/");
 };
 
 // UPDATE profile
 export const updateProfile = (data) => {
-  return api.put("/user/profile", data);
+  return api.put("/user/me/update/", data);
 };
 
 // UPDATE password
@@ -27,16 +27,16 @@ export const updatePassword = (data) => {
 
 
 //login
-export const login = () => {
-  return api.post("/user/login");
+export const login = (data) => {
+  return api.post("/user/login/", data);
 };
 
 //Signup
-export const signup = () => {
-  return api.post("/user/signup");
+export const signup = (data) => {
+  return api.post("/user/signup/", data);
 };
 
 //logout
 export const logout = () => {
-  return api.post("/user/logout");
+  return api.post("/dashboard/logout/");
 };

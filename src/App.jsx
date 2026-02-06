@@ -17,6 +17,7 @@ import Privacy from "./components/Privacy";
 import Refund from "./components/Refund";
 import Shipping from "./components/Shipping";
 import Membership from "./components/Membership";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -28,20 +29,72 @@ function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/faq" element={<FAQ />} />
-        <Route path="/terms" element={<TermsnCondition/>}/>
-        <Route path="/privacy" element={<Privacy/>}/>
-        <Route path="/refund" element={<Refund/>}/>
-        <Route path="/shipping" element={<Shipping/>}/>
-        <Route path="/membership" element={<Membership/>}/>
-
+        <Route path="/terms" element={<TermsnCondition />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/refund" element={<Refund />} />
+        <Route path="/shipping" element={<Shipping />} />
+        <Route path="/membership" element={<Membership />} />
 
         {/* dashboard */}
-        <Route path="/dashboard" element={<Dashboard />} />
+        {/* <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/dboard" element={<Dboard />} />
         <Route path="/leads" element={<Leads />} />
         <Route path="/savedProducts" element={<SavedProducts />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/help" element={<Help />} />
+        <Route path="/help" element={<Help />} /> */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/dboard"
+          element={
+            <ProtectedRoute>
+              <Dboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/leads"
+          element={
+            <ProtectedRoute>
+              <Leads />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/savedProducts"
+          element={
+            <ProtectedRoute>
+              <SavedProducts />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/help"
+          element={
+            <ProtectedRoute>
+              <Help />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </AnimatePresence>
   );
