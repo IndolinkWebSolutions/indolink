@@ -3,6 +3,7 @@ import Sidebar from "./Sidebar";
 import DNavbar from "./DNavbar";
 import { CgProfile } from "react-icons/cg";
 import { getProfile, updateProfile, updatePassword } from "../api/index.js";
+import { toast } from "react-toastify";
 
 const Profile = () => {
   const [profile, setProfile] = useState({
@@ -50,7 +51,7 @@ const Profile = () => {
     setLoading(true);
     try {
       await updateProfile(profile);
-      alert("Profile updated successfully");
+      toast.success("Profile Updated Successfully.");
     } catch (err) {
       console.error(err);
     } finally {
@@ -66,7 +67,7 @@ const Profile = () => {
 
     try {
       await updatePassword(passwords);
-      alert("Password updated");
+      toast.success("Password Updated.");
       setPasswords({ current: "", new: "", confirm: "" });
     } catch (err) {
       console.error(err);
@@ -75,7 +76,7 @@ const Profile = () => {
 
   return (
     <div className="flex h-screen bg-gray-100">
- <div className="hidden md:block">
+      <div className="hidden md:block">
         <Sidebar />
       </div>
 

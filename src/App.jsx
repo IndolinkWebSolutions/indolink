@@ -18,10 +18,15 @@ import Refund from "./components/Refund";
 import Shipping from "./components/Shipping";
 import Membership from "./components/Membership";
 import ProtectedRoute from "./components/ProtectedRoute";
+import CategoryPage from "./pages/CategoryPage";
+import ProductDetailsPage from "./pages/ProductDetailsPage";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <AnimatePresence mode="wait">
+      <ToastContainer position="top-right" autoClose={2000} />
+
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -34,6 +39,8 @@ function App() {
         <Route path="/refund" element={<Refund />} />
         <Route path="/shipping" element={<Shipping />} />
         <Route path="/membership" element={<Membership />} />
+        <Route path="/category/:slug" element={<CategoryPage />} />
+        <Route path="/product/:id" element={<ProductDetailsPage />} />
 
         {/* dashboard */}
         {/* <Route path="/dashboard" element={<Dashboard />} />

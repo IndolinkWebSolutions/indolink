@@ -19,8 +19,7 @@ function SearchBox() {
       <div className="hidden md:flex items-center w-[45%] bg-white border border-gray-300 rounded-full shadow-sm focus-within:ring-2 focus-within:ring-sky-400 transition">
         <select className="px-4 py-2 text-sm bg-transparent outline-none border-r text-gray-600 cursor-pointer">
           <option>Products</option>
-          <option>Categories</option>
-          <option>Brands</option>
+          <option>Leads</option>
         </select>
 
         <input

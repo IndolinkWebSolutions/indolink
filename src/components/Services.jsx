@@ -27,7 +27,7 @@ const cards = [
     icon: <FaGlobe className="text-red-500" />,
     title: "Global Reach",
     desc: "Expand your business across borders.",
-  },
+  }, 
   {
     icon: <FaHandshake className="text-cyan-500" />,
     title: "Partnerships",

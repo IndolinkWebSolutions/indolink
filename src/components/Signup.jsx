@@ -7,10 +7,10 @@ import Header from "./Header";
 import { pageTransition, pageVariants } from "../pageTransition";
 import { motion } from "framer-motion";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import api from "../api/api.js";
 import Navbar from "./Navbar.jsx";
 import { signup } from "../api/index.js";
 import Footer from "./Footer.jsx";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -38,6 +38,8 @@ const Signup = () => {
         mobile_number,
       });
 
+      
+      toast.success("Login successful");
       navigate("/login");
     } catch (err) {
       setError(
@@ -166,7 +168,7 @@ const Signup = () => {
           </div>
         </div>
       </motion.div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

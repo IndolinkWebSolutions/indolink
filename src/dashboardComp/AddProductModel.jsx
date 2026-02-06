@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { addProduct } from "../api";
+import { toast } from "react-toastify";
 
 const AddProductModal = ({ onClose, onAdded }) => {
   const [form, setForm] = useState({
@@ -20,8 +21,10 @@ const AddProductModal = ({ onClose, onAdded }) => {
 
     try {
       await addProduct(form);
-      onAdded(); // refresh list
-      onClose(); // close modal
+      onAdded(); 
+      onClose(); 
+      toast.success("Product Added.");
+      
     } catch (err) {
       console.error("Add product failed", err);
     } finally {

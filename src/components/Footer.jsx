@@ -43,11 +43,7 @@ const Footer = () => {
                 MemberShip Plans
               </Link>
             </li>
-            <li>
-              <Link to="/faq" className={linkClass}>
-                Help Center
-              </Link>
-            </li>
+
             <li>
               <Link to="/login" className={linkClass}>
                 My Account
@@ -80,6 +76,11 @@ const Footer = () => {
             <li>
               <Link to="/terms" className={linkClass}>
                 Terms & Conditions
+              </Link>
+            </li>
+            <li>
+              <Link to="/faq" className={linkClass}>
+                Help Center
               </Link>
             </li>
           </ul>

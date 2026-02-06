@@ -1,5 +1,7 @@
 import api from "./api";
 
+// ================== PRODUCTS ==================
+
 // ADD product
 export const addProduct = (data) => {
   return api.post("/products", data);
@@ -9,6 +11,20 @@ export const addProduct = (data) => {
 export const getSavedProducts = () => {
   return api.get("/products/saved");
 };
+
+// ================== CATEGORIES ==================
+
+// GET all categories
+export const getCategories = () => {
+  return api.get("/categories");
+};
+
+// GET single category + products by slug
+export const getCategoryDetails = (slug) => {
+  return api.get(`/categories/${slug}`);
+};
+
+// ================== USER ==================
 
 // GET profile
 export const getProfile = () => {
@@ -25,18 +41,19 @@ export const updatePassword = (data) => {
   return api.put("/user/password", data);
 };
 
+// ================== AUTH ==================
 
-//login
+// login
 export const login = (data) => {
   return api.post("/user/login/", data);
 };
 
-//Signup
+// Signup
 export const signup = (data) => {
   return api.post("/user/signup/", data);
 };
 
-//logout
+// logout
 export const logout = () => {
   return api.post("/dashboard/logout/");
 };

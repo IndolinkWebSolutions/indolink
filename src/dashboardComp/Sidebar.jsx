@@ -5,6 +5,7 @@ import { RiLogoutCircleLine, RiProfileFill } from "react-icons/ri";
 import { RxDashboard } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../api";
+import { toast } from "react-toastify";
 
 const Sidebar = ({ onClose }) => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const Sidebar = ({ onClose }) => {
   const handlelogout = async () => {
     await logout();
     navigate("/login");
+    toast.success("Logout successfully");
     onClose && onClose();
   };
 

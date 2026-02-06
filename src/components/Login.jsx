@@ -10,6 +10,7 @@ import Navbar from "./Navbar.jsx";
 import { login } from "../api/index.js";
 import Footer from "./Footer.jsx";
 import { AuthContext } from "../context/AuthContext.jsx";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,35 +19,33 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
- const { user, setUser, loadUser } = useContext(AuthContext);
+  const { user, setUser, loadUser } = useContext(AuthContext);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
 
+    try {
+      const res = await login({
+        username,
+        password,
+      });
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
-  setError("");
-  setLoading(true);
+      // save tokens
+      localStorage.setItem("access", res.data.access);
+      localStorage.setItem("refresh", res.data.refresh);
 
-  try {
-    const res = await login({
-      username,
-      password,
-    });
-
-    // save tokens
-    localStorage.setItem("access", res.data.access);
-    localStorage.setItem("refresh", res.data.refresh);
-
-    // 🔥 NOW fetch authenticated user
-    await loadUser();
-
-  } catch (err) {
-    setError(err.response?.data?.error || "Invalid username or password");
-  } finally {
-    setLoading(false);
-  }
-};
-
+      // 🔥 NOW fetch authenticated user
+      await loadUser();
+      toast.success("Login successful");
+      navigate("/")
+    } catch (err) {
+      setError(err.response?.data?.error || "Invalid username or password");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (user) {
@@ -153,7 +152,7 @@ const Login = () => {
           </div>
         </div>
       </motion.div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

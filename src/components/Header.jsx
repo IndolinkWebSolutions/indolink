@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { FaUserCircle } from "react-icons/fa";
 import { logout } from "../api";
+import { toast } from "react-toastify";
 
 function Header() {
   const [open, setOpen] = useState(false);
@@ -15,7 +16,8 @@ function Header() {
     await logout();
     setUser(null);
     setOpen(false);
-    navigate("/");
+    toast.success("Logout successful");
+    navigate("/login");
   };
 
   return (
@@ -80,16 +82,6 @@ function Header() {
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                 >
                   My Profile
-                </p>
-
-                <p
-                  onClick={() => {
-                    navigate("/orders");
-                    setOpen(false);
-                  }}
-                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                >
-                  Orders
                 </p>
 
                 <p
