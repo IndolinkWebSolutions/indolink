@@ -21,19 +21,14 @@ export const AuthProvider = ({ children }) => {
       setUser(res.data);
     } catch (err) {
       setUser(null);
-      localStorage.removeItem("access");
-      localStorage.removeItem("refresh");
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    loadUser();
-  }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, loading }}>
+    <AuthContext.Provider value={{ user, setUser,loadUser, loading }}>
       {children}
     </AuthContext.Provider>
   );
