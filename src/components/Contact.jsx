@@ -1,5 +1,6 @@
 import React from "react";
-import { FaUser, FaEnvelope, FaTag, FaPen, FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaPen, FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
+import { FaPhone } from "react-icons/fa6";
 
 const Contact = () => {
   return (
@@ -37,10 +38,10 @@ const Contact = () => {
               </div>
 
               <div className="flex items-center border rounded-md px-4">
-                <FaTag className="text-gray-400 mr-3" />
+                <FaPhone className="text-gray-400 mr-3" />
                 <input
-                  type="text"
-                  placeholder="Subject"
+                  type="number"
+                  placeholder="Your Phone Number"
                   className="w-full py-3 outline-none"
                 />
               </div>

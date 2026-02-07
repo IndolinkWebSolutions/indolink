@@ -12,12 +12,22 @@ export const getSavedProducts = () => {
   return api.get("/products/saved");
 };
 
+// SEARCH products
+export const searchProducts = (query) => {
+  return api.get(`/search?query=${query}`);
+};
+
+
 // ================== CATEGORIES ==================
+
+// api/index.js (or api.js)
+
 
 // GET all categories
 export const getCategories = () => {
-  return api.get("/categories");
+  return api.get("/products/categories/");
 };
+
 
 // GET single category + products by slug
 export const getCategoryDetails = (slug) => {

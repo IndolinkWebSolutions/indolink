@@ -18,7 +18,7 @@ const categories = [
   },
   {
     title: "Ayurveda & Herbal",
-    slug: "ayurveda-herbal",
+    slug: "ayurveda-herbal", 
     image: ayurveda,
   },
   {

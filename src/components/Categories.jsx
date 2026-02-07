@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from "react";
-import api from "../api/api";
+import { getCategories } from "../api/index.js";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
+ 
   useEffect(() => {
-    api.get("/products/categories/")
-      .then(res => setCategories(res.data))
-      .catch(err => console.error(err))
-      .finally(() => setLoading(false));
+    const fetchCategories = async () => {
+      try {
+        const { data } = await getCategories();
+        setCategories(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
   }, []);
 
   if (loading) {

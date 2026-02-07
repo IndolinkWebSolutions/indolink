@@ -1,10 +1,5 @@
 import { useState } from "react";
-import {
-  FaChevronRight,
-  FaChevronDown,
-  FaMobileAlt,
-  FaTshirt,
-} from "react-icons/fa";
+import { FaChevronRight, FaChevronDown } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import file from "../assets/file.png";
 import shield from "../assets/shield.png";
