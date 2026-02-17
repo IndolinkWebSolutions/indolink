@@ -7,7 +7,6 @@ import {
   FaPhoneAlt,
 } from "react-icons/fa";
 import { FaPhone } from "react-icons/fa6";
-import { submitContact } from "../api/index";
 import { toast } from "react-toastify";
 
 const Contact = () => {

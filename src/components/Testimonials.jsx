@@ -3,19 +3,25 @@ import React from "react";
 const testimonials = [
   {
     name: "Christine Jackson",
-    username: "luminous_statue_35",
+    username: "Import Manager, UK",
     img: "https://i.pravatar.cc/100?img=32",
+    review:
+      "Indolink Exports has been a reliable sourcing partner for our business. Their product quality, timely shipments, and professional communication make international trade smooth and stress-free.",
   },
   {
     name: "Yasmine Garcia",
-    username: "pendulous_ukulele_30",
+    username: "Wholesale Buyer, UAE",
     img: "https://i.pravatar.cc/100?img=44",
+    review:
+      "We have consistently received premium quality goods at competitive prices. The team ensures proper packaging and documentation, which makes importing from India very convenient.",
   },
   {
     name: "Sakura Palastri",
-    username: "salubrious_producer_83",
+    username: "Retail Distributor, Italy",
     img: "https://i.pravatar.cc/100?img=47",
-  }
+    review:
+      "Their transparency and commitment to quality truly stand out. Indolink Exports delivers exactly what they promise. Highly recommended for anyone looking for trusted Indian suppliers.",
+  },
 ];
 
 const Testimonials = () => {
@@ -26,12 +32,11 @@ const Testimonials = () => {
           Testimonials
         </span>
 
-        <h2 className="text-4xl font-bold mb-3">
-          Our trusted clients
-        </h2>
+        <h2 className="text-4xl font-bold mb-3">Our trusted clients</h2>
         <p className="text-gray-500 max-w-2xl mx-auto mb-14">
-          Our mission is to drive progress and enhance the lives of our customers
-          by delivering superior products and services that exceed expectations.
+          Our mission is to drive progress and enhance the lives of our
+          customers by delivering superior products and services that exceed
+          expectations.
         </p>
 
         {/* Cards */}
@@ -56,9 +61,7 @@ const Testimonials = () => {
               </div>
 
               <h4 className="font-semibold">{item.name}</h4>
-              <p className="text-sm text-gray-400 mb-4">
-                {item.username}
-              </p>
+              <p className="text-sm text-gray-400 mb-4">{item.username}</p>
 
               <p className="text-gray-600 text-sm leading-relaxed mb-6">
                 If you’re not using testimonials, you’re missing out on a golden
