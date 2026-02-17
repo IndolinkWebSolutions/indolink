@@ -48,10 +48,10 @@ const Refund = () => {
             <ul className="list-disc pl-6 space-y-2">
               <li>
                 All payments must be made in favor of
-                <strong> “Weblink.IN Pvt. Ltd.”</strong> only.
+                <strong> “IndoLink Web Solutions Pvt. Ltd.”</strong> only.
               </li>
               <li>
-                Payments are required on a <strong>100% advance basis</strong>
+                Payments are required on a <strong>100% advance basis </strong>
                 to ensure uninterrupted paid services.
               </li>
               <li>

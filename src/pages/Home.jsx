@@ -9,10 +9,16 @@ import Footer from "../components/Footer";
 import Categories from "../components/Categories";
 import Contact from "../components/Contact";
 import Testimonials from "../components/Testimonials";
+import Card from "../components/Card";
+import { useState } from "react";
 
 function Home() {
+  const [showCard, setShowCard] = useState(true);
+
   return (
-    <>
+    <div className="relative">
+      {showCard && <Card setShow={setShowCard} />}
+
       <TopBar />
       <Header />
       <Navbar />
@@ -20,12 +26,13 @@ function Home() {
       <About />
       <Services />
       <FeaturedCategories />
-      <Categories/>
-      <Testimonials/>
-      <Contact/>
+      <Categories />
+      <Testimonials />
+      <Contact />
       <Footer />
-    </>
+    </div>
   );
 }
+
 
 export default Home;

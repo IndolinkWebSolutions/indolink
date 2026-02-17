@@ -57,7 +57,6 @@ const Contact = () => {
     <section className="bg-gray-100 py-20 px-6">
       <div className="max-w-7xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-2">
-          
           {/* LEFT FORM */}
           <div className="p-10">
             <button className="flex items-center gap-2 bg-slate-700 text-white px-5 py-3 rounded-md mb-6">
@@ -136,7 +135,7 @@ const Contact = () => {
           <div className="h-full">
             <iframe
               title="Map"
-              src="https://www.google.com/maps?q=New%20York&output=embed"
+               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15281533.209975474!2d72.10711966063003!3d20.75715382814725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x44b2f6e99ea7ae9f%3A0xf9d96d79398a7662!2sIndoLink%20Web%20Solutions!5e0!3m2!1sen!2sin!4v1771327580443!5m2!1sen!2sin"
               className="w-full h-full min-h-[450px] border-0"
               loading="lazy"
             ></iframe>
@@ -147,20 +146,19 @@ const Contact = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 text-center py-10 border-t border-gray-300">
           <div className="flex flex-col items-center gap-2">
             <FaMapMarkerAlt className="text-slate-700 text-2xl" />
-            <p className="font-semibold">New York, NY 10012</p>
-            <span className="text-gray-500 text-sm">United States</span>
+            <span className="text-gray-500 text-sm">Balaji Motor, Kiran Garden, Near Nawada Metro Station, New Delhi – 110059, India.</span>
           </div>
 
           <div className="flex flex-col items-center gap-2">
             <FaPhoneAlt className="text-slate-700 text-2xl" />
-            <p className="font-semibold">+01 234 567 89</p>
-            <span className="text-gray-500 text-sm">Mon - Fri, 9:00–18:00</span>
+            <span className="text-gray-500 text-sm">011 4657 2483</span>
           </div>
 
           <div className="flex flex-col items-center gap-2">
             <FaEnvelope className="text-slate-700 text-2xl" />
-            <p className="font-semibold">info@email.com</p>
-            <span className="text-gray-500 text-sm">sale@email.com</span>
+            <span className="text-gray-500 text-sm">
+              indolinkwebsolutions@gmail.com
+            </span>
           </div>
         </div>
       </div>

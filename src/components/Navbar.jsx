@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { FaChevronRight, FaChevronDown } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import file from "../assets/file.png";
 import shield from "../assets/shield.png";
@@ -7,251 +5,11 @@ import refund from "../assets/refund.png";
 import box from "../assets/box.png";
 
 function Navbar() {
-  const categories = [
-    {
-      name: "Food Product & Beverage",
-
-      sub: [
-        {
-          name: "Dairy Products",
-          child: ["Milk", "Cheeze", "Butter", "Ice-cream", "Paneer"],
-        },
-        {
-          name: "Confectionery & Backery Products",
-          child: ["Cholocolates", "Cookies", "Biscuit", "Cake", "Candy"],
-        },
-        {
-          name: "Cooking Spices & Masala",
-          child: [
-            "Cinnamon",
-            "Garlic",
-            "Ginger",
-            "Turmeric",
-            "Coriander",
-            "Garam Mashala",
-          ],
-        },
-        {
-          name: "Beverages",
-          child: ["Beer", "Ice", "Coconut Water", "Apple Cider Vinegar"],
-        },
-        {
-          name: "Dry Fruits",
-          child: ["Almond", "Cashews", "Walnuts", "Dates", "Faxnuts"],
-        },
-        {
-          name: "Tea",
-          child: [
-            "Black Tea",
-            "Green Tea",
-            "Masala Tea",
-            "PapenMint",
-            "Oolong",
-          ],
-        },
-      ],
-    },
-    {
-      name: "Agricultures",
-      sub: [
-        {
-          name: "Fresh Flower & Plant",
-          child: ["Rose", "Merigold", "Orichids", "Money plant", "Wheat Grass"],
-        },
-        {
-          name: "Food Grains & Cereals",
-          child: ["Oats", "Rice", "Jeggery", "Wheat"],
-        },
-        {
-          name: "Fruits",
-          child: ["Mango", "Apple", "Backberry", "Dragon Fruits"],
-        },
-        {
-          name: "Agricultural Equipments & Supplies",
-          child: [
-            "Seed Drills",
-            "Pickaxe",
-            "Agriculteral tool",
-            "Other Equipment",
-          ],
-        },
-      ],
-    },
-    {
-      name: "Fashion & Apparel",
-      sub: [
-        {
-          name: "Leather Clothing",
-          child: [
-            "Leather Jackets",
-            "Waist Coat",
-            "Leather Belt",
-            "Leather Gloves",
-            "Leather Pants",
-          ],
-        },
-        {
-          name: "Men",
-          child: ["Shirt", "T-shirts", "Jeans", "Watch", "Wallets", "Shoes"],
-        },
-        {
-          name: "Women",
-          child: [
-            "Anarkali Suits",
-            "Designer Blouses",
-            "Pakistani Suits",
-            "Anarkali Dress",
-            "Salwar Kamiz",
-          ],
-        },
-        {
-          name: "Kids",
-          child: ["Baby Dresses", "Kids Lahenga", "Tutu Dress", "Kids Frocks"],
-        },
-      ],
-    },
-    {
-      name: "Ayurveda & Herbals",
-      sub: [
-        {
-          name: "Ayurvedic, Herbal Medicines & Products",
-          child: [
-            "Herbal Row Material",
-            "Herbal Formulations Products",
-            "Herbal Medicines",
-            "Honey",
-          ],
-        },
-        {
-          name: "Ayurvedic Consultants",
-          child: [
-            "Hair Loss Treatment Service",
-            "Homopathic Skin Treatment Service",
-            "Joint Pain Treatment Service",
-            "Piles Treatment Service",
-          ],
-        },
-        {
-          name: "Herbal Foods",
-          child: ["food"],
-        },
-        {
-          name: "Pure & Natural Herbs",
-          child: ["Pure Herbs", "Aloe Vera", "Split Cassia", "Herb Plant"],
-        },
-      ],
-    },
-    {
-      name: "Electronics",
-      sub: [
-        {
-          name: "Mobiles",
-          child: ["Android Phones", "iPhones", "Refurbished"],
-        },
-        {
-          name: "Laptops",
-          child: ["Gaming Laptops", "Business Laptops", "Student Laptops"],
-        },
-      ],
-    },
-    {
-      name: "Fashion",
-      sub: [
-        {
-          name: "Men",
-          child: ["Shirts", "Jeans", "Shoes"],
-        },
-        {
-          name: "Women",
-          child: ["Dresses", "Handbags", "Footwear"],
-        },
-      ],
-    },
-  ];
-
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
-  const [activeCategory, setActiveCategory] = useState(null);
-  const [activeSub, setActiveSub] = useState(null);
 
   return (
     <nav className="w-full hidden md:flex bg-sky-500 text-white px-6 relative">
       <div className="flex items-center gap-6 text-sm font-medium py-3">
-        {/* ALL CATEGORIES */}
-        <div
-          className="relative"
-          onMouseEnter={() => setOpen(true)}
-          onMouseLeave={() => {
-            setOpen(false);
-            setActiveCategory(null);
-            setActiveSub(null);
-          }}
-        >
-          <span className="cursor-pointer font-semibold flex items-center gap-2">
-            ALL CATEGORIES {open ? <FaChevronDown /> : <FaChevronRight />}
-          </span>
-
-          {open && (
-            <div className="absolute left-0 top-full bg-[#0f172a] shadow-xl z-50 w-[900px] p-4 grid grid-cols-3 gap-4">
-              {/* COLUMN 1 – CATEGORY */}
-              <div className="border-r">
-                {categories.map((cat, i) => (
-                  <div
-                    key={i}
-                    onMouseEnter={() => {
-                      setActiveCategory(cat);
-                      setActiveSub(null);
-                    }}
-                    className={`px-4 py-3 cursor-pointer flex justify-between hover:bg-blue-50 ${
-                      activeCategory?.name === cat.name &&
-                      "bg-blue-100 text-blue-600"
-                    }`}
-                  >
-                    {cat.name}
-                    <FaChevronRight />
-                  </div>
-                ))}
-              </div>
-
-              {/* COLUMN 2 – SUB CATEGORY */}
-              <div className="border-r">
-                {activeCategory?.sub?.map((sub, i) => (
-                  <div
-                    key={i}
-                    onMouseEnter={() => setActiveSub(sub)}
-                    className={`px-4 py-3 cursor-pointer hover:bg-blue-50 ${
-                      activeSub?.name === sub.name &&
-                      "bg-blue-100 text-blue-600"
-                    }`}
-                  >
-                    {sub.name}
-                  </div>
-                ))}
-              </div>
-
-              {/* COLUMN 3 – PRODUCTS */}
-              <div className="max-h-[350px] overflow-y-auto">
-                {activeSub?.child?.map((item, i) => (
-                  <div
-                    key={i}
-                    className="px-4 py-2 text-sm cursor-pointer hover:bg-gray-600"
-                  >
-                    {item}
-                  </div>
-                ))}
-
-                {!activeSub && (
-                  <p className="text-gray-400 text-sm px-4">
-                    Select a sub-category
-                  </p>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Other Menu Items */}
-        {/* <span className="cursor-pointer">OUR FEATURES</span> */}
         <div className="relative group">
           {/* TRIGGER */}
           <span className="cursor-pointer flex items-center gap-2 text-white">
@@ -272,7 +30,7 @@ function Navbar() {
           </span>
 
           {/* DROPDOWN */}
-          <div className="absolute left-80 -translate-x-1/2 mt-4 w-[900px] bg-[#0f172a] rounded-xl shadow-2xl p-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+          <div className="absolute md:left-120 -translate-x-1/2 mt-4 w-[900px] bg-[#0f172a] rounded-xl shadow-2xl p-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
             {/* HEADER */}
             <div className="flex items-center gap-4 mb-8">
               <img
@@ -326,10 +84,11 @@ function Navbar() {
         </div>
 
         <div className="relative group">
-          <span className="cursor-pointer flex items-center gap-3 font-semibold  tracking-wide text-white transition">
+          {/* Trigger */}
+          <span className="cursor-pointer flex items-center gap-2 font-semibold tracking-wide text-white">
             SELLER CENTRAL
             <svg
-              className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180"
+              className="w-4 h-4 transition-transform duration-300 group-hover:rotate-180"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -344,27 +103,69 @@ function Navbar() {
           </span>
 
           {/* Dropdown */}
-          <div className="absolute left-1/2 -translate-x-1/2 mt-3 w-[650px]  bg-[#0f172a] rounded shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-            <ul className="flex justify-between px-9 py-6 text-base text-gray-200 ">
-              <li
+          <div
+            className="absolute left-120 -translate-x-1/2 mt-4 w-[850px] 
+  bg-gradient-to-br from-[#0f172a] to-[#1e293b] 
+  rounded-2xl shadow-2xl p-8 
+  opacity-0 invisible 
+  group-hover:opacity-100 group-hover:visible 
+  transition-all duration-300 ease-in-out z-50"
+          >
+            {/* Header */}
+            <div className="mb-8">
+              <h3 className="text-white text-xl font-semibold">
+                Grow Your Business With Us 🚀
+              </h3>
+              <p className="text-gray-400 text-sm mt-2">
+                Everything you need to become a successful supplier.
+              </p>
+            </div>
+
+            {/* Grid Cards */}
+            <div className="grid grid-cols-3 gap-6">
+              {/* Card 1 */}
+              <div
                 onClick={() => navigate("/about")}
-                className="cursor-pointer max-w-[150px] hover:text-blue-400 transition border-r"
+                className="cursor-pointer bg-[#020617] border border-gray-800 rounded-xl p-6 
+        hover:border-sky-500 hover:shadow-lg hover:scale-[1.03] 
+        transition-all duration-300"
               >
-                What is Indolink Exports?
-              </li>
-              <li
+                <h4 className="text-white font-semibold mb-2">
+                  What is Indolink Exports?
+                </h4>
+                <p className="text-gray-400 text-sm">
+                  Learn how our B2B platform helps suppliers connect globally.
+                </p>
+              </div>
+
+              {/* Card 2 */}
+              <div
                 onClick={() => navigate("/membership")}
-                className="cursor-pointer max-w-[150px] hover:text-blue-400 transition border-r"
+                className="cursor-pointer bg-[#020617] border border-gray-800 rounded-xl p-6 
+        hover:border-sky-500 hover:shadow-lg hover:scale-[1.03] 
+        transition-all duration-300"
               >
-                Membership Program
-              </li>
-              <li
+                <h4 className="text-white font-semibold mb-2">
+                  Membership Program
+                </h4>
+                <p className="text-gray-400 text-sm">
+                  Unlock premium features & boost your visibility.
+                </p>
+              </div>
+
+              {/* Card 3 */}
+              <div
                 onClick={() => navigate("/signup")}
-                className="cursor-pointer max-w-[150px] hover:text-blue-400 transition"
+                className="cursor-pointer bg-[#020617] border border-gray-800 rounded-xl p-6 
+        hover:border-sky-500 hover:shadow-lg hover:scale-[1.03] 
+        transition-all duration-300"
               >
-                My Account
-              </li>
-            </ul>
+                <h4 className="text-white font-semibold mb-2">My Account</h4>
+                <p className="text-gray-400 text-sm">
+                  Manage your seller profile & product listings.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 

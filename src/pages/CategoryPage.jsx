@@ -4,6 +4,7 @@ import TopBar from "../components/TopBar";
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { getCategoryDetails } from "../api";
 
 const CategoryPage = () => {
   const { slug } = useParams();
@@ -11,84 +12,103 @@ const CategoryPage = () => {
   const [category, setCategory] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // MOCK DATA (frontend testing only)
-    const mockData = {
-      category: {
-        name: slug.replace("-", " ").toUpperCase(),
-        description: "This is a demo category page (frontend only).",
-      },
-      products: [
-        {
-          _id: "1",
-          name: "Sample Product 1",
-          price: 999,
-          image: "https://via.placeholder.com/300",
-        },
-        {
-          _id: "2",
-          name: "Sample Product 2",
-          price: 1499,
-          image: "https://via.placeholder.com/300",
-        },
-        {
-          _id: "3",
-          name: "Sample Product 3",
-          price: 1999,
-          image: "https://via.placeholder.com/300",
-        },
-        {
-          _id: "4",
-          name: "Sample Product 4",
-          price: 2499,
-          image: "https://via.placeholder.com/300",
-        },
-      ],
-    };
+  const fetchCategoryProducts = async () => {
+    try {
+      setLoading(true);
 
-    setTimeout(() => {
-      setCategory(mockData.category);
-      setProducts(mockData.products);
+      const { data } = await getCategoryDetails(slug);
+
+      setCategory(data.category);
+      setProducts(data.products);
+      setError(null);
+    } catch (err) {
+      setError("Failed to load category");
+      setCategory(null);
+      setProducts([]);
+    } finally {
       setLoading(false);
-    }, 500); // fake loading
-  }, [slug]);
+    }
+  };
 
-  if (loading) {
-    return <div className="text-center py-10">Loading...</div>;
+  if (slug) {
+    fetchCategoryProducts();
   }
+}, [slug]);
+
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <TopBar />
       <Header />
       <Navbar />
-      <div className="px-6 py-8">
-        {/* CATEGORY INFO */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold">{category.name}</h1>
-          <p className="text-gray-600 mt-2">{category.description}</p>
-        </div>
 
-        {/* PRODUCTS */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products.map((product) => (
-            <div
-              key={product._id}
-              className="border rounded-lg p-4 hover:shadow-md transition"
-            >
-              <Link to={`/product/${product._id}`}>
-                <img src={product.image} alt={product.name} />
-              
+      {/* Main Content */}
+      <div className="flex-grow px-6 py-8">
+        {loading && (
+          <div className="text-center py-20 text-lg font-medium">
+            Loading products...
+          </div>
+        )}
 
-              <h3 className="font-semibold">{product.name}</h3>
-              </Link>
+        {error && (
+          <div className="text-center text-red-500 py-20">
+            {error}
+          </div>
+        )}
+
+        {!loading && !error && (
+          <>
+            {/* Category Info */}
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold capitalize">
+                {category?.name}
+              </h1>
+              <p className="text-gray-600 mt-2">
+                {category?.description}
+              </p>
             </div>
-          ))}
-        </div>
+
+            {/* Products Grid */}
+            {products.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {products.map((product) => (
+                  <div
+                    key={product._id}
+                    className="bg-white border rounded-xl p-4 hover:shadow-lg transition duration-300"
+                  >
+                    <Link to={`/product/${product._id}`}>
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-48 object-cover rounded-md"
+                      />
+
+                      <h3 className="mt-3 font-semibold text-gray-800">
+                        {product.name}
+                      </h3>
+
+                      <p className="text-sky-600 font-bold mt-1">
+                        ₹{product.price}
+                      </p>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center text-gray-500 py-20">
+                No products found in this category.
+              </div>
+            )}
+          </>
+        )}
       </div>
+
+      {/* Footer Always Bottom */}
       <Footer />
-    </>
+    </div>
   );
 };
 

@@ -19,9 +19,9 @@ const Sidebar = ({ onClose }) => {
     await logout();
     navigate("/login");
     toast.success("Logout successfully");
-    onClose && onClose();
+    onClose && onClose();  
   };
-
+ 
   return (
     <div className="bg-gray-950 text-white w-[250px] h-full">
       <h1 className="text-2xl font-bold px-6 py-6">Dashboard</h1>

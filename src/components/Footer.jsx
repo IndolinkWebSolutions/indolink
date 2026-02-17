@@ -95,15 +95,19 @@ const Footer = () => {
           <ul className="space-y-3 text-sm">
             <li className="flex items-start gap-2">
               <FaMapPin className="mt-1 text-orange-400" />
-              <span>New Delhi, India</span>
+              <span>
+                {" "}
+                Kiran Garden, Near Nawada Metro Station, New Delhi – 110059,
+                India.
+              </span>
             </li>
             <li className="flex items-center gap-2">
               <FaPhone className="text-orange-400" />
-              011 46572483
+              011 4657 2483
             </li>
             <li className="flex items-center gap-2">
               <FaEnvelope className="text-orange-400" />
-              info@indolinkwebsolutions.com
+              indolinkwebsolutions@gmail.com
             </li>
           </ul>
 

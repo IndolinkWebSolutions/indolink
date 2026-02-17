@@ -1,4 +1,4 @@
-import api from "./api";
+import api from "./api.js";
 
 // ================== PRODUCTS ==================
 
@@ -35,6 +35,11 @@ export const getCategoryDetails = (slug) => {
 };
 
 // ================== USER ==================
+
+//Create enquiry form
+export const enquiryForm = ()=>{
+  return api.post("/create")
+}
 
 // GET profile
 export const getProfile = () => {
