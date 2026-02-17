@@ -1,8 +1,58 @@
-import React from "react";
-import { FaUser, FaEnvelope, FaPen, FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
+import React, { useState } from "react";
+import {
+  FaUser,
+  FaEnvelope,
+  FaPen,
+  FaMapMarkerAlt,
+  FaPhoneAlt,
+} from "react-icons/fa";
 import { FaPhone } from "react-icons/fa6";
+import { submitContact } from "../api/index";
+import { toast } from "react-toastify";
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phoneNo: "",
+    msg: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      await submitContact(formData);
+
+      toast.success("Message sent successfully ✅");
+
+      setFormData({
+        name: "",
+        email: "",
+        phoneNo: "",
+        msg: "",
+      });
+
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message ||
+        "You can submit contact form only once per day ❌"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section className="bg-gray-100 py-20 px-6">
       <div className="max-w-7xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden">
@@ -18,12 +68,17 @@ const Contact = () => {
               We will write rarely, but only the best content.
             </p>
 
-            <form className="space-y-5">
+            <form className="space-y-5" onSubmit={handleSubmit}>
+              
               <div className="flex items-center border rounded-md px-4">
                 <FaUser className="text-gray-400 mr-3" />
                 <input
                   type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   placeholder="Your name"
+                  required
                   className="w-full py-3 outline-none"
                 />
               </div>
@@ -32,7 +87,11 @@ const Contact = () => {
                 <FaEnvelope className="text-gray-400 mr-3" />
                 <input
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="Your email"
+                  required
                   className="w-full py-3 outline-none"
                 />
               </div>
@@ -40,8 +99,12 @@ const Contact = () => {
               <div className="flex items-center border rounded-md px-4">
                 <FaPhone className="text-gray-400 mr-3" />
                 <input
-                  type="number"
+                  type="tel"
+                  name="phoneNo"
+                  value={formData.phoneNo}
+                  onChange={handleChange}
                   placeholder="Your Phone Number"
+                  required
                   className="w-full py-3 outline-none"
                 />
               </div>
@@ -50,16 +113,21 @@ const Contact = () => {
                 <FaPen className="text-gray-400 mr-3 mt-4" />
                 <textarea
                   rows="4"
+                  name="msg"
+                  value={formData.msg}
+                  onChange={handleChange}
                   placeholder="Your message"
+                  required
                   className="w-full py-3 outline-none resize-none"
-                ></textarea>
+                />
               </div>
 
               <button
                 type="submit"
-                className="bg-slate-700 text-white px-8 py-3 rounded-md hover:bg-slate-800 transition"
+                disabled={loading}
+                className="bg-slate-700 text-white px-8 py-3 rounded-md hover:bg-slate-800 transition disabled:opacity-50"
               >
-                Submit
+                {loading ? "Submitting..." : "Submit"}
               </button>
             </form>
           </div>

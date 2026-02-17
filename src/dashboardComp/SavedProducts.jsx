@@ -52,10 +52,10 @@ const SavedProducts = () => {
               </thead>
 
               <tbody className="text-sm">
-                {products.lenghth > 0 ? (
+                {products.length > 0 ? (
                   products.map((p) => (
                     <tr key={p._id} className="border-b hover:bg-blue-50">
-                      <td className="p-4 font-medium">{p.name}</td>
+                      <td className="p-4 font-medium">{p.products_name}</td>
                       <td className="p-4">
                         <span className="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-700">
                           {p.category}

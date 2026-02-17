@@ -40,7 +40,7 @@ function App() {
         <Route path="/shipping" element={<Shipping />} />
         <Route path="/membership" element={<Membership />} />
         <Route path="/category/:slug" element={<CategoryPage />} />
-        <Route path="/product/:id" element={<ProductDetailsPage />} />
+        <Route path="/products/:slug" element={<ProductDetailsPage />} />
 
         {/* dashboard */}
         {/* <Route path="/dashboard" element={<Dashboard />} />

@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 const AddProductModal = ({ onClose, onAdded }) => {
   const [form, setForm] = useState({
-    name: "",
+    products_name: "",
     category: "",
     description: "",
   });
@@ -40,7 +40,7 @@ const AddProductModal = ({ onClose, onAdded }) => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
-            name="name"
+            name="products_name"
             placeholder="Product Name"
             value={form.name}
             onChange={handleChange}

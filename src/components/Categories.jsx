@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { getCategories } from "../api/index.js";
+import { getCategories } from "../api";
+import {Link} from 'react-router-dom';
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
- 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const { data } = await getCategories();
-        setCategories(data);
+        setCategories(Array.isArray(data) ? data : []);
       } catch (error) {
-        console.error(error);
+        console.error("Category fetch error:", error);
+        setCategories([]);
       } finally {
         setLoading(false);
       }
@@ -31,51 +32,56 @@ const Categories = () => {
 
   return (
     <div className="bg-white text-black py-10 px-6 space-y-16">
-      {categories.map((category, index) => (
-        <div key={index}>
+      {categories.map((category) => (
+        <div key={category.slug}>
           {/* CATEGORY TITLE */}
-          <h2 className="text-2xl font-semibold mb-6">
-            {category.name}
-          </h2>
+          <h2 className="text-2xl font-semibold mb-6">{category.name}</h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-9">
-            {/* LEFT IMAGE */}
-            <div
-              className="lg:col-span-1 relative h-[340px] rounded-lg overflow-hidden"
-              style={{
-                backgroundImage: `url(${category.image})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            >
+            {/* LEFT CATEGORY IMAGE */}
+            <div className="lg:col-span-1 relative h-[340px] rounded-lg overflow-hidden bg-gray-200">
+              {category.image ? (
+                <div
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${category.image})` }}
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center text-gray-500 text-sm">
+                  No Image
+                </div>
+              )}
+
+              {/* Overlay */}
               <div className="absolute inset-0 bg-black/50 p-4 flex flex-col justify-end">
                 <div className="text-white text-sm space-y-1">
-                  {category.subcategories.map((sub, i) => (
-                    <p key={i}>{sub.title}</p>
+                  {(category.subcategories || []).map((sub) => (
+                    <p key={sub.slug}>{sub.title}</p>
                   ))}
                 </div>
               </div>
             </div>
 
             {/* SUBCATEGORIES */}
-            {category.subcategories.map((sub, i) => (
+            {(category.subcategories || []).map((sub) => (
               <div
-                key={i}
-                className="border border-gray-700 rounded-lg p-4 flex justify-between"
+                key={sub.slug}
+                className="border border-gray-300 rounded-lg p-4 flex justify-between gap-4"
               >
                 <div>
-                  <h3 className="font-semibold mb-2 flex justify-between">
+                  <h3 className="font-semibold mb-2 flex items-center justify-between">
                     {sub.title}
-                    <span className="text-sky-400">➜</span>
+                    <span className="text-sky-400 ml-2">➜</span>
                   </h3>
 
-                  <ul className="space-y-1 text-sm text-sky-400">
-                    {sub.products.map((product, j) => (
-                      <li
-                        key={j}
-                        className="hover:underline cursor-pointer"
-                      >
-                        {product.name}
+                  <ul className="space-y-1 text-sm text-sky-500">
+                    {(sub.products || []).map((product) => (
+                      <li key={product.slug}>
+                        <Link
+                          to={`/products/${product.slug}`}
+                          className="hover:underline text-sky-500"
+                        >
+                          {product.name}
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -86,6 +92,7 @@ const Categories = () => {
                     src={sub.image}
                     alt={sub.title}
                     className="w-24 h-24 object-cover rounded"
+                    loading="lazy"
                   />
                 )}
               </div>
@@ -98,10 +105,6 @@ const Categories = () => {
 };
 
 export default Categories;
-
-
-
-
 
 // import React, { useEffect, useState } from "react";
 // import api from "../api/api";
