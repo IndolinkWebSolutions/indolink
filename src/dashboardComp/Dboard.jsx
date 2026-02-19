@@ -51,7 +51,7 @@ const Dboard = () => {
               <input
                 className="w-full border border-gray-400 text-gray-400 rounded px-3 py-2"
                 placeholder="Company Name"
-                defaultValue="ABC Enterprises"
+               
               />
 
               <input
