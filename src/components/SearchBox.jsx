@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Search, X } from "lucide-react";
-import { searchProducts } from "../api"; // adjust path if needed
+import { searchProducts, searchLeads } from "../api";
 
 function SearchBox() {
   const [query, setQuery] = useState("");
+  const [searchType, setSearchType] = useState("products"); // 👈 NEW
   const [open, setOpen] = useState(false);
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -18,8 +19,18 @@ function SearchBox() {
     const delay = setTimeout(async () => {
       try {
         setLoading(true);
-        const { data } = await searchProducts(query);
-        setResults(data?.results || []);
+
+        let response;
+
+        if (searchType === "products") {
+          response = await searchProducts(query);
+          setResults(response.data || []);
+        } else {
+          response = await searchLeads(query);
+          setResults(response.data?.results || []); 
+          // leads has pagination
+        }
+
       } catch (error) {
         console.error("Search error:", error);
       } finally {
@@ -28,7 +39,7 @@ function SearchBox() {
     }, 400);
 
     return () => clearTimeout(delay);
-  }, [query]);
+  }, [query, searchType]); // 👈 dependency added
 
   return (
     <>
@@ -39,14 +50,24 @@ function SearchBox() {
 
       {/* 🖥 Desktop Search */}
       <div className="relative hidden md:flex items-center w-[45%] bg-white border border-gray-300 rounded-full shadow-sm">
-        <select className="px-4 py-2 text-sm bg-transparent outline-none border-r text-gray-600">
-          <option>Products</option>
-          <option>Leads</option>
+        
+        {/* 👇 SEARCH TYPE SELECT */}
+        <select
+          value={searchType}
+          onChange={(e) => setSearchType(e.target.value)}
+          className="px-4 py-2 text-sm bg-transparent outline-none border-r text-gray-600"
+        >
+          <option value="products">Products</option>
+          <option value="leads">Leads</option>
         </select>
 
         <input
           type="text"
-          placeholder="Search for products, brands..."
+          placeholder={
+            searchType === "products"
+              ? "Search products..."
+              : "Search leads..."
+          }
           className="flex-1 px-4 py-2 text-sm outline-none"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -61,7 +82,7 @@ function SearchBox() {
           <div className="absolute top-full left-0 w-full bg-white border rounded-xl shadow-lg mt-2 z-50">
             {results.map((item) => (
               <div
-                key={item._id}
+                key={item.id}
                 className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm"
               >
                 {item.name}
@@ -81,10 +102,25 @@ function SearchBox() {
       {open && (
         <div className="fixed inset-0 z-50 bg-white p-4 md:hidden">
           <div className="flex items-center gap-2 border rounded-lg px-3 py-2 shadow-sm">
+            
+            {/* Mobile select */}
+            <select
+              value={searchType}
+              onChange={(e) => setSearchType(e.target.value)}
+              className="text-sm outline-none"
+            >
+              <option value="products">Products</option>
+              <option value="leads">Leads</option>
+            </select>
+
             <input
               autoFocus
               type="text"
-              placeholder="Search products..."
+              placeholder={
+                searchType === "products"
+                  ? "Search products..."
+                  : "Search leads..."
+              }
               className="flex-1 outline-none"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -99,7 +135,7 @@ function SearchBox() {
           <div className="mt-4">
             {results.map((item) => (
               <div
-                key={item._id}
+                key={item.id}
                 className="py-3 border-b text-sm"
               >
                 {item.name}

@@ -17,8 +17,8 @@ export const getCategoryDetails = (slug) => {
 };
 
 //Create enquiry form
-export const enquiryForm = ()=>{
-  return publicApi.post("enquiries/home-enquiry/")
+export const enquiryForm = (formData)=>{
+  return publicApi.post("enquiries/home-enquiry/", formData)
 }
 
 
@@ -33,11 +33,13 @@ export const signup = (data) => {
 };
 
 // SEARCH products
-export const searchProducts = (query) => {
-  return publicApi.get(`/search?query=${query}`);
+export const searchProducts = (q) =>{
+  return publicApi.get(`/products/search/?q=${q}`);
+  };
+
+export const searchLeads = (q) =>{
+  return publicApi.get(`/leads/search/?q=${q}`);
 };
-
-
 
 //===========================================================
 //============== only for authenticate user==================
@@ -85,5 +87,3 @@ export const logout = async () => {
   localStorage.removeItem("refresh");
   window.location.href = "/login";
 };
-
-

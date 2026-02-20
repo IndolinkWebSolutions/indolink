@@ -6,9 +6,9 @@ import { enquiryForm } from "../api";
 function Card({ setShow }) {
   const [loading, setLoading] = useState("");
   const [formData, setFormData] = useState({
-    company: "",
+    company_name: "",
     email: "",
-    phone: "",
+    phoneNo: "",
   });
 
   const handleChange = (e) => {
@@ -66,8 +66,8 @@ function Card({ setShow }) {
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
-            name="company"
-            value={formData.company}
+            name="company_name"
+            value={formData.company_name}
             onChange={handleChange}
             required
             placeholder="Company Name"
@@ -86,8 +86,8 @@ function Card({ setShow }) {
 
           <input
             type="tel"
-            name="phone"
-            value={formData.phone}
+            name="phoneNo"
+            value={formData.phoneNo}
             onChange={handleChange}
             required
             placeholder="Phone Number"
