@@ -15,10 +15,12 @@ import {
   FaHardHat,
   FaCouch,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const categories = [
   {
     name: "Food Product & Beverage",
+    slug: "food-beverages",
     icon: <FaUtensils />,
     sub: [
       {
@@ -56,6 +58,7 @@ const categories = [
   },
   {
     name: "Agricultures",
+    slug: "agriculture",
     icon: <FaLeaf />,
     sub: [
       {
@@ -83,6 +86,7 @@ const categories = [
   },
   {
     name: "Fashion & Apparel",
+    slug: "fashion-apparels",
     icon: <FaTshirt />,
     sub: [
       {
@@ -117,6 +121,8 @@ const categories = [
   },
   {
     name: "Ayurveda & Herbals",
+    slug: "ayurveda-herbal",
+
     icon: <FaCapsules />,
     sub: [
       {
@@ -149,6 +155,7 @@ const categories = [
   },
   {
     name: "Electronics",
+    slug: "electronics",
     icon: <FaLaptop />,
     sub: [
       {
@@ -163,6 +170,7 @@ const categories = [
   },
   {
     name: "Transportation & Logistics",
+    slug: "transportation",
     icon: <FaTruck />,
     sub: [
       {
@@ -182,6 +190,7 @@ const categories = [
 
   {
     name: "Packaging Materials",
+    slug: "packaging",
     icon: <FaBoxOpen />,
     sub: [
       {
@@ -202,6 +211,7 @@ const categories = [
 
   {
     name: "Machinery & Equipment",
+    slug: "machinery",
     icon: <FaIndustry />,
     sub: [
       {
@@ -217,6 +227,7 @@ const categories = [
 
   {
     name: "Medical Equipment",
+    slug: "medical",
     icon: <FaHospital />,
     sub: [
       {
@@ -232,6 +243,7 @@ const categories = [
 
   {
     name: "Personal Care & Cleaning",
+    slug: "personal-care",
     icon: <FaPumpSoap />,
     sub: [
       {
@@ -246,27 +258,8 @@ const categories = [
   },
 
   {
-    name: "Safety Products",
-    icon: <FaHardHat />,
-    sub: [
-      {
-        name: "Industrial Safety",
-        child: [
-          "Safety Helmets",
-          "Safety Gloves",
-          "Safety Shoes",
-          "Reflective Jackets",
-        ],
-      },
-      {
-        name: "Fire Safety",
-        child: ["Fire Extinguishers", "Smoke Detectors"],
-      },
-    ],
-  },
-
-  {
     name: "Home Furniture",
+    slug: "home",
     icon: <FaCouch />,
     sub: [
       {
@@ -307,9 +300,11 @@ const Sidebar = () => {
             className="flex justify-between items-center px-2 py-3 cursor-pointer hover:bg-blue-100"
           >
             <p className="text-sky-500">{cat.icon}</p>
-            <span className="text-sm font-medium md:-ml-12 active:bg-blue-200">
-              {cat.name}
-            </span>
+            <Link to={`/category/${cat.slug}`}>
+              <span className="text-sm font-medium md:-ml-12 active:bg-blue-200">
+                {cat.name}
+              </span>
+            </Link>
             <FaChevronRight className="text-gray-400 text-sm" />
           </div>
         ))}
@@ -319,7 +314,7 @@ const Sidebar = () => {
       {activeCategory && (
         <div className="absolute left-full top-0 h-full w-[750px] bg-gradient-to-br from-[#0f172a] to-[#1e293b] shadow-2xl rounded-r-xl p-6 grid grid-cols-3 gap-6 z-50">
           {/* COLUMN 1 – Sub Categories */}
-          <div className="border-r pr-4">
+          <div className="border-r border-dotted pr-4">
             <h4 className="text-gray-100 text-xs uppercase tracking-wide mb-4">
               Sub Categories
             </h4>

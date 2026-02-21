@@ -44,6 +44,7 @@ const CategoryPage = () => {
       <TopBar />
       <Header />
       <Navbar />
+      
 
       {/* Main Content */}
       <div className="flex-grow px-6 py-8">

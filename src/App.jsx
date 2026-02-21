@@ -43,13 +43,13 @@ function App() {
         <Route path="/products/:slug" element={<ProductDetailsPage />} />
 
         {/* dashboard */}
-        {/* <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/dboard" element={<Dboard />} />
         <Route path="/leads" element={<Leads />} />
         <Route path="/savedProducts" element={<SavedProducts />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/help" element={<Help />} /> */}
-        <Route
+        <Route path="/help" element={<Help />} />
+        {/* <Route
           path="/dashboard"
           element={
             <ProtectedRoute>
@@ -101,8 +101,8 @@ function App() {
               <Help />
             </ProtectedRoute>
           }
-        />
-      </Routes>
+        />*/}
+      </Routes> 
     </AnimatePresence>
   );
 }

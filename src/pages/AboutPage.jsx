@@ -28,7 +28,6 @@ const AboutPage = () => {
       {/* HERO / ABOUT SECTION */}
       <section className="bg-[#ffffff] text-bloack py-20">
         <div className="max-w-7xl mx-auto px-6">
-          <p className="text-sm text-gray-800 mb-3">About Us</p>
 
           <h1 className="text-5xl font-bold mb-6">
             Indolink <span className="text-gray-800">Exports</span>

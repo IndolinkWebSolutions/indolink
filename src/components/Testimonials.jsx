@@ -2,23 +2,20 @@ import React from "react";
 
 const testimonials = [
   {
-    name: "Christine Jackson",
-    username: "Import Manager, UK",
-    img: "https://i.pravatar.cc/100?img=32",
+    name: "Rajesh Sharma",
+    username: "Export Manager, Mumbai",
     review:
       "Indolink Exports has been a reliable sourcing partner for our business. Their product quality, timely shipments, and professional communication make international trade smooth and stress-free.",
   },
   {
-    name: "Yasmine Garcia",
-    username: "Wholesale Buyer, UAE",
-    img: "https://i.pravatar.cc/100?img=44",
+    name: "Priya Mehta",
+    username: "Wholesale Buyer, Delhi",
     review:
       "We have consistently received premium quality goods at competitive prices. The team ensures proper packaging and documentation, which makes importing from India very convenient.",
   },
   {
-    name: "Sakura Palastri",
-    username: "Retail Distributor, Italy",
-    img: "https://i.pravatar.cc/100?img=47",
+    name: "Arjun Reddy",
+    username: "Retail Distributor, Hyderabad",
     review:
       "Their transparency and commitment to quality truly stand out. Indolink Exports delivers exactly what they promise. Highly recommended for anyone looking for trusted Indian suppliers.",
   },
@@ -53,20 +50,16 @@ const Testimonials = () => {
               `}
             >
               <div className="flex justify-center mb-4">
-                <img
-                  src={item.img}
-                  alt={item.name}
-                  className="w-14 h-14 rounded-full object-cover"
-                />
+                <div className="w-14 h-14 rounded-full bg-sky-600 flex items-center justify-center text-white text-xl font-bold">
+                  {item.name.charAt(0)}
+                </div>
               </div>
 
               <h4 className="font-semibold">{item.name}</h4>
               <p className="text-sm text-gray-400 mb-4">{item.username}</p>
 
               <p className="text-gray-600 text-sm leading-relaxed mb-6">
-                If you’re not using testimonials, you’re missing out on a golden
-                opportunity to turn visitors and potential buyers into actual
-                customers.
+                {item.review}
               </p>
 
               <div className="text-gray-300 text-3xl">“</div>

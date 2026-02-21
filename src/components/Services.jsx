@@ -6,47 +6,56 @@ import {
   FaHandshake,
   FaHeadset,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const cards = [
   {
     icon: <FaUserPlus className="text-blue-500" />,
     title: "Register Your Business",
     desc: "Join our B2B platform and connect globally.",
+    link:"/signup"
   },
   {
     icon: <FaQuestionCircle className="text-green-500" />,
     title: "Help & Support",
     desc: "Get answers to FAQs and support anytime.",
+    link:"/privacy"
   },
   {
     icon: <FaBriefcase className="text-yellow-500" />,
     title: "B2B Services",
     desc: "Explore our business solutions worldwide.",
+    lnk:"/about"
   },
   {
     icon: <FaGlobe className="text-red-500" />,
     title: "Global Reach",
     desc: "Expand your business across borders.",
+    link:"/about"
   }, 
   {
     icon: <FaHandshake className="text-cyan-500" />,
     title: "Partnerships",
     desc: "Collaborate with trusted businesses.",
+    link:"/"
   },
   {
     icon: <FaHeadset className="text-gray-600" />,
     title: "Customer Support",
     desc: "We’re here to help 24/7.",
+    link:"/support"
   },
 ];
 
 export default function IndolinkCards() {
+  const navigate = useNavigate();
   return (
     <section className="bg-white py-4 px-4 sm:px-8 md:px-16">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {cards.map((card, index) => (
           <div
             key={index}
+            onClick={()=>navigate(card.link)}
             className="
               bg-white rounded-lg p-8 text-center
               shadow-[0_8px_20px_rgba(0,0,0,0.08)]

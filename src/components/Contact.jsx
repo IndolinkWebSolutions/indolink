@@ -16,7 +16,7 @@ const Contact = () => {
     phoneNo: "",
     msg: "",
   });
-
+ 
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
