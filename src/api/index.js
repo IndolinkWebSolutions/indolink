@@ -112,4 +112,9 @@ export const getLatestLeads = () => {
 
 export const getHistoryLeads = ()=>{
   return api.get("leadsaccess/decrypt/<int:lead_id>/");
+
 }
+
+export const getGroupedLeads = (slug) => {
+  return publicApi.get(`/leads/group/${slug}/`);
+};

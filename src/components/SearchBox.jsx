@@ -48,7 +48,7 @@ function SearchBox() {
     if (searchType === "products") {
       navigate(`/products/${item.slug}`);
     } else {
-      navigate(`/leads/${item.slug}`);
+      navigate(`/leads/group/${item.slug}`);
     }
   };
 
