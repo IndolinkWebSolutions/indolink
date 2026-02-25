@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import logo from "../assets/logo.png";
 import { enquiryForm } from "../api";
+import { toast } from "react-toastify";
 
 function Card({ setShow }) {
   const [loading, setLoading] = useState("");
@@ -26,11 +27,11 @@ function Card({ setShow }) {
 
       const { data } = await enquiryForm(formData);
 
-      alert(data.message || "Lead Saved Successfully!");
+      toast.success(data.message || "Lead Saved Successfully!");
       setShow(false);
     } catch (error) {
       console.error(error);
-      alert("Something went wrong!");
+      toast.error("Something went wrong!");
     } finally {
       setLoading(false);
     }

@@ -3,9 +3,9 @@ import logo from "../assets/logo.png";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { FaUserCircle } from "react-icons/fa";
 import { logout } from "../api";
 import { toast } from "react-toastify";
+import { LogOut } from "lucide-react";
 
 function Header() {
   const [open, setOpen] = useState(false);
@@ -69,27 +69,35 @@ function Header() {
               </>
             ) : (
               <>
-                <div className="px-4 py-2 flex items-center gap-2 text-sm text-gray-700 border-b">
-                  <FaUserCircle size={18} />
-                  <span>{user.username}</span>
+                {/* Profile Header */}
+                <div className="px-4 py-3 flex items-center gap-3 text-sm text-gray-700 border-b">
+                  {/* Avatar */}
+                  <div className="w-9 h-9 rounded-full bg-sky-800 text-white flex items-center justify-center font-semibold">
+                    {user?.name?.[0]?.toUpperCase() || "N/A"}
+                  </div>
+
+                  {/* Username */}
+                  <span className="font-medium text-uppercase">{user?.name}</span>
                 </div>
 
-                <p
+                {/* Profile */}
+                <div
                   onClick={() => {
                     navigate("/profile");
                     setOpen(false);
                   }}
-                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center gap-2"
                 >
                   My Profile
-                </p>
+                </div>
 
-                <p
+                {/* Logout */}
+                <div
                   onClick={handlelogout}
-                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-500"
+                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-500 flex items-center gap-2"
                 >
-                  Logout
-                </p>
+                  <LogOut size={16} /> Logout
+                </div>
               </>
             )}
           </div>

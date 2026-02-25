@@ -54,7 +54,7 @@ const Categories = () => {
               {/* Overlay */}
               <div className="absolute inset-0 bg-black/50 p-4 flex flex-col justify-end">
                 <div className="text-white text-sm space-y-1">
-                  {(category.subcategories || []).map((sub) => (
+                  {(category?.subcategories || []).map((sub) => (
                     <p key={sub.slug}>{sub.title}</p>
                   ))}
                 </div>
@@ -62,7 +62,7 @@ const Categories = () => {
             </div>
 
             {/* SUBCATEGORIES */}
-            {(category.subcategories || []).map((sub) => (
+            {(category?.subcategories || []).map((sub) => (
               <div
                 key={sub.slug}
                 className="border border-gray-300 rounded-lg p-4 flex justify-between gap-4"

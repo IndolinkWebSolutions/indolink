@@ -7,7 +7,7 @@ const faqs = [
   {
     question: "How do I reset my password?",
     answer:
-      "Go to settings → change password. If you forgot your password, use the 'Forgot Password' option on login.",
+      "Go to Profile → change password. If you forgot your password, use the 'Forgot Password' option on login.",
   },
   {
     question: "How can I contact support?",
@@ -15,9 +15,9 @@ const faqs = [
       "Click on the 'Contact Support' button and fill out the form. Our team usually replies within 24 hours.",
   },
   {
-    question: "Where can I see my payment history?",
+    question: "Where can I see my leads history?",
     answer:
-      "Navigate to Billing section from your dashboard to view invoices and payment history.",
+      "Go to the Leads History section from the dashboard. There you can view all your previous leads and activities.",
   },
   {
     question: "Is my data secure?",

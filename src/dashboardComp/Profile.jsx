@@ -9,7 +9,7 @@ const Profile = () => {
   const [profile, setProfile] = useState({
     name: "",
     email: "",
-    phone: "",
+    mobile_number: "",
     businessType: "",
     notificationPref: "",
   });
@@ -76,60 +76,77 @@ const Profile = () => {
 
   return (
     <div className="flex h-screen bg-gray-100">
+      {/* Sidebar */}
       <div className="hidden md:block">
         <Sidebar />
       </div>
 
-      <div className="flex-1">
+      <div className="flex-1 flex flex-col">
         <DNavbar />
 
-        <div className="p-6 overflow-auto">
-          <h1 className="text-2xl font-semibold mb-6">Settings</h1>
+        <div className="p-8 overflow-auto">
+          {/* Heading */}
+          <div className="mb-6">
+            <h1 className="text-3xl font-bold text-gray-800">Settings</h1>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* PROFILE SETTINGS */}
-            <div className="bg-white rounded-lg shadow p-6">
-              <CgProfile className="w-10 h-10 mb-2" />
-              <h2 className="font-semibold mb-4">Profile Settings</h2>
+            <p className="text-gray-500">Manage your account settings</p>
+          </div>
 
-              <div className="space-y-4">
-                <input
-                  name="name"
-                  value={profile.name}
-                  onChange={handleChange}
-                  className="w-full border rounded px-3 py-2"
-                  placeholder="Full Name"
-                />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* PROFILE CARD */}
+            <div className="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition">
+              <div className="flex items-center gap-3 mb-5">
+                <div className="bg-sky-100 p-3 rounded-xl">
+                  <CgProfile className="text-sky-600 text-2xl" />
+                </div>
 
-                <input
-                  name="email"
-                  value={profile.email}
-                  disabled
-                  className="w-full border rounded px-3 py-2 bg-gray-100"
-                  placeholder="Email Address"
-                />
+                <div>
+                  <h2 className="font-semibold text-lg">My Profile</h2>
 
-                <input
-                  name="phone"
-                  value={profile.phone}
-                  onChange={handleChange}
-                  className="w-full border rounded px-3 py-2"
-                  placeholder="Phone Number"
-                />
-
-                <button
-                  onClick={saveProfile}
-                  disabled={loading}
-                  className="bg-blue-600 text-white px-6 py-2 rounded"
-                >
-                  {loading ? "Saving..." : "Save Profile"}
-                </button>
+                  <p className="text-gray-400 text-sm">
+                    Your personal information
+                  </p>
+                </div>
               </div>
+
+              {profile ? (
+                <div className="space-y-4">
+                  <div className="bg-gray-50 rounded-lg p-3">
+                    <p className="text-gray-400 text-sm">Full Name</p>
+
+                    <p className="font-semibold text-gray-800">
+                      {profile.name}
+                    </p>
+                  </div>
+
+                  <div className="bg-gray-50 rounded-lg p-3">
+                    <p className="text-gray-400 text-sm">Email</p>
+
+                    <p className="font-semibold text-gray-800">
+                      {profile.email}
+                    </p>
+                  </div>
+
+                  <div className="bg-gray-50 rounded-lg p-3">
+                    <p className="text-gray-400 text-sm">Phone Number</p>
+
+                    <p className="font-semibold text-gray-800">
+                      {profile.mobile_number || "Not Added"}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-gray-400">Loading Profile...</p>
+              )}
             </div>
 
-            {/* SECURITY */}
-            <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="font-semibold mb-4">Security</h2>
+            {/* SECURITY CARD */}
+            <div className="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition">
+              <div className="mb-5">
+                <h2 className="font-semibold text-lg">Security</h2>
+
+                <p className="text-gray-400 text-sm">Change your password</p>
+              </div>
 
               <div className="space-y-4">
                 <input
@@ -137,7 +154,7 @@ const Profile = () => {
                   name="current"
                   value={passwords.current}
                   onChange={handlePasswordChange}
-                  className="w-full border rounded px-3 py-2"
+                  className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-400"
                   placeholder="Current Password"
                 />
 
@@ -146,7 +163,7 @@ const Profile = () => {
                   name="new"
                   value={passwords.new}
                   onChange={handlePasswordChange}
-                  className="w-full border rounded px-3 py-2"
+                  className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-400"
                   placeholder="New Password"
                 />
 
@@ -155,56 +172,18 @@ const Profile = () => {
                   name="confirm"
                   value={passwords.confirm}
                   onChange={handlePasswordChange}
-                  className="w-full border rounded px-3 py-2"
-                  placeholder="Confirm New Password"
+                  className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-400"
+                  placeholder="Confirm Password"
                 />
 
                 <button
                   onClick={savePassword}
-                  className="bg-red-600 text-white px-6 py-2 rounded"
+                  className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-medium transition"
                 >
                   Update Password
                 </button>
               </div>
             </div>
-          </div>
-
-          {/* BUSINESS SETTINGS */}
-          <div className="bg-white rounded-lg shadow p-6 mt-6">
-            <h2 className="font-semibold mb-4">Business Preferences</h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <select
-                name="businessType"
-                value={profile.businessType}
-                onChange={handleChange}
-                className="border rounded px-3 py-2"
-              >
-                <option value="">Select Business Type</option>
-                <option value="Manufacturer">Manufacturer</option>
-                <option value="Exporter">Exporter</option>
-                <option value="Trader">Trader</option>
-              </select>
-
-              <select
-                name="notificationPref"
-                value={profile.notificationPref}
-                onChange={handleChange}
-                className="border rounded px-3 py-2"
-              >
-                <option value="">Notification Preference</option>
-                <option value="Email">Email</option>
-                <option value="SMS">SMS</option>
-                <option value="All">All</option>
-              </select>
-            </div>
-
-            <button
-              onClick={saveProfile}
-              className="bg-blue-600 text-white px-6 py-2 rounded mt-4"
-            >
-              Save Preferences
-            </button>
           </div>
         </div>
       </div>

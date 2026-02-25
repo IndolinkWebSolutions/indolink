@@ -22,7 +22,7 @@ const SavedProducts = () => {
   }, []);
 
   return (
-    <div className="flex h-screen">
+    <div className="flex bg-gray-100 h-screen">
       <div className="hidden md:block">
         <Sidebar />
       </div>

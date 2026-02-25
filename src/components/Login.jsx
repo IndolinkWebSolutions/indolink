@@ -11,15 +11,17 @@ import { login } from "../api/index.js";
 import Footer from "./Footer.jsx";
 import { AuthContext } from "../context/AuthContext.jsx";
 import { toast } from "react-toastify";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
+  const [showPassword, setShowPassword] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { user, setUser, loadUser } = useContext(AuthContext);
+  const { user, loadUser } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,7 +41,7 @@ const Login = () => {
       // 🔥 NOW fetch authenticated user
       await loadUser();
       toast.success("Login successful");
-      navigate("/")
+      navigate("/");
     } catch (err) {
       setError(err.response?.data?.error || "Invalid username or password");
     } finally {
@@ -83,28 +85,44 @@ const Login = () => {
             {error && (
               <p className="text-red-500 text-sm text-center mt-2">{error}</p>
             )}
-
             <form onSubmit={handleSubmit} className="mt-6 space-y-4">
               <div>
-                <label className="text-sm text-gray-600">Username</label>
                 <input
                   type="text"
                   value={username}
+                  placeholder="Username"
                   onChange={(e) => setUsername(e.target.value)}
                   required
                   className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-sky-400"
                 />
               </div>
 
-              <div>
-                <label className="text-sm text-gray-600">Password</label>
+              <div className="relative">
                 <input
-                  type="password"
-                  value={password}
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-sky-400"
+                  className="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-sky-400"
                 />
+
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500"
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
+
+              {/* Forgot Password */}
+
+              <div className="text-right">
+                <button
+                  type="button"
+                  onClick={() => navigate("/forgot-password")}
+                  className="text-sky-600 text-sm hover:underline"
+                >
+                  Forgot Password?
+                </button>
               </div>
 
               <button

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Search, X } from "lucide-react";
 import { searchProducts, searchLeads } from "../api";
+import { useNavigate } from "react-router-dom";
 
 function SearchBox() {
   const [query, setQuery] = useState("");
@@ -8,6 +9,7 @@ function SearchBox() {
   const [open, setOpen] = useState(false);
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   // 🔍 Fetch search results with debounce
   useEffect(() => {
@@ -27,10 +29,9 @@ function SearchBox() {
           setResults(response.data || []);
         } else {
           response = await searchLeads(query);
-          setResults(response.data?.results || []); 
+          setResults(response.data?.results || []);
           // leads has pagination
         }
-
       } catch (error) {
         console.error("Search error:", error);
       } finally {
@@ -41,6 +42,14 @@ function SearchBox() {
     return () => clearTimeout(delay);
   }, [query, searchType]); // 👈 dependency added
 
+  const handleRedirect = (item) => {
+    if (searchType === "products") {
+      navigate(`/products/${item.slug}`);
+    } else {
+      navigate(`/allLeads`);
+    }
+  };
+
   return (
     <>
       {/* 🔍 Mobile Icon */}
@@ -50,7 +59,6 @@ function SearchBox() {
 
       {/* 🖥 Desktop Search */}
       <div className="relative hidden md:flex items-center w-[45%] bg-white border border-gray-300 rounded-full shadow-sm">
-        
         {/* 👇 SEARCH TYPE SELECT */}
         <select
           value={searchType}
@@ -64,9 +72,7 @@ function SearchBox() {
         <input
           type="text"
           placeholder={
-            searchType === "products"
-              ? "Search products..."
-              : "Search leads..."
+            searchType === "products" ? "Search products..." : "Search leads..."
           }
           className="flex-1 px-4 py-2 text-sm outline-none"
           value={query}
@@ -83,6 +89,7 @@ function SearchBox() {
             {results.map((item) => (
               <div
                 key={item.id}
+                onClick={() => handleRedirect(item)}
                 className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm"
               >
                 {item.name}
@@ -102,7 +109,6 @@ function SearchBox() {
       {open && (
         <div className="fixed inset-0 z-50 bg-white p-4 md:hidden">
           <div className="flex items-center gap-2 border rounded-lg px-3 py-2 shadow-sm">
-            
             {/* Mobile select */}
             <select
               value={searchType}
@@ -137,15 +143,14 @@ function SearchBox() {
               <div
                 key={item.id}
                 className="py-3 border-b text-sm"
+                onClick={() => handleRedirect(item)}
               >
                 {item.name}
               </div>
             ))}
 
             {loading && (
-              <p className="text-sm text-gray-500 mt-2">
-                Searching...
-              </p>
+              <p className="text-sm text-gray-500 mt-2">Searching...</p>
             )}
           </div>
         </div>

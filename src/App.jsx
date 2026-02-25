@@ -21,11 +21,13 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import CategoryPage from "./pages/CategoryPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import { ToastContainer } from "react-toastify";
+import LeadsHistory from "./dashboardComp/LeadsHistory";
+import LeadsPage from "./pages/LeadsPage";
 
 function App() {
   return (
     <AnimatePresence mode="wait">
-      <ToastContainer position="top-right" autoClose={2000} />
+      <ToastContainer position="top-right"  theme="dark" autoClose={2000} />
 
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
@@ -41,15 +43,17 @@ function App() {
         <Route path="/membership" element={<Membership />} />
         <Route path="/category/:slug" element={<CategoryPage />} />
         <Route path="/products/:slug" element={<ProductDetailsPage />} />
+        <Route path="/allLeads" element={<LeadsPage/>}/>
 
         {/* dashboard */}
-        <Route path="/dashboard" element={<Dashboard />} />
+        {/* <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/dboard" element={<Dboard />} />
         <Route path="/leads" element={<Leads />} />
+        <Route path="/leads-history" element={<LeadsHistory/>}/>
         <Route path="/savedProducts" element={<SavedProducts />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/help" element={<Help />} />
-        {/* <Route
+        <Route path="/help" element={<Help />} /> */}
+        <Route
           path="/dashboard"
           element={
             <ProtectedRoute>
@@ -101,7 +105,7 @@ function App() {
               <Help />
             </ProtectedRoute>
           }
-        />*/}
+        />
       </Routes> 
     </AnimatePresence>
   );

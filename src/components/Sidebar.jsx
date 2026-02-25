@@ -1,282 +1,25 @@
-import { useState } from "react";
-import {
-  FaCapsules,
-  FaChevronRight,
-  FaLaptop,
-  FaLeaf,
-  FaThLarge,
-  FaTshirt,
-  FaUtensils,
-  FaTruck,
-  FaBoxOpen,
-  FaIndustry,
-  FaHospital,
-  FaPumpSoap,
-  FaHardHat,
-  FaCouch,
-} from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { FaChevronRight, FaThLarge } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
-const categories = [
-  {
-    name: "Food Product & Beverage",
-    slug: "food-beverages",
-    icon: <FaUtensils />,
-    sub: [
-      {
-        name: "Dairy Products",
-        child: ["Milk", "Cheeze", "Butter", "Ice-cream", "Paneer"],
-      },
-      {
-        name: "Confectionery & Backery Products",
-        child: ["Cholocolates", "Cookies", "Biscuit", "Cake", "Candy"],
-      },
-      {
-        name: "Cooking Spices & Masala",
-        child: [
-          "Cinnamon",
-          "Garlic",
-          "Ginger",
-          "Turmeric",
-          "Coriander",
-          "Garam Mashala",
-        ],
-      },
-      {
-        name: "Beverages",
-        child: ["Beer", "Ice", "Coconut Water", "Apple Cider Vinegar"],
-      },
-      {
-        name: "Dry Fruits",
-        child: ["Almond", "Cashews", "Walnuts", "Dates", "Faxnuts"],
-      },
-      {
-        name: "Tea",
-        child: ["Black Tea", "Green Tea", "Masala Tea", "PapenMint", "Oolong"],
-      },
-    ],
-  },
-  {
-    name: "Agricultures",
-    slug: "agriculture",
-    icon: <FaLeaf />,
-    sub: [
-      {
-        name: "Fresh Flower & Plant",
-        child: ["Rose", "Merigold", "Orichids", "Money plant", "Wheat Grass"],
-      },
-      {
-        name: "Food Grains & Cereals",
-        child: ["Oats", "Rice", "Jeggery", "Wheat"],
-      },
-      {
-        name: "Fruits",
-        child: ["Mango", "Apple", "Backberry", "Dragon Fruits"],
-      },
-      {
-        name: "Agricultural Equipments & Supplies",
-        child: [
-          "Seed Drills",
-          "Pickaxe",
-          "Agriculteral tool",
-          "Other Equipment",
-        ],
-      },
-    ],
-  },
-  {
-    name: "Fashion & Apparel",
-    slug: "fashion-apparels",
-    icon: <FaTshirt />,
-    sub: [
-      {
-        name: "Leather Clothing",
-        child: [
-          "Leather Jackets",
-          "Waist Coat",
-          "Leather Belt",
-          "Leather Gloves",
-          "Leather Pants",
-        ],
-      },
-      {
-        name: "Men",
-        child: ["Shirt", "T-shirts", "Jeans", "Watch", "Wallets", "Shoes"],
-      },
-      {
-        name: "Women",
-        child: [
-          "Anarkali Suits",
-          "Designer Blouses",
-          "Pakistani Suits",
-          "Anarkali Dress",
-          "Salwar Kamiz",
-        ],
-      },
-      {
-        name: "Kids",
-        child: ["Baby Dresses", "Kids Lahenga", "Tutu Dress", "Kids Frocks"],
-      },
-    ],
-  },
-  {
-    name: "Ayurveda & Herbals",
-    slug: "ayurveda-herbal",
-
-    icon: <FaCapsules />,
-    sub: [
-      {
-        name: "Ayurvedic, Herbal Medicines & Products",
-        child: [
-          "Herbal Row Material",
-          "Herbal Formulations Products",
-          "Herbal Medicines",
-          "Honey",
-        ],
-      },
-      {
-        name: "Ayurvedic Consultants",
-        child: [
-          "Hair Loss Treatment Service",
-          "Homopathic Skin Treatment Service",
-          "Joint Pain Treatment Service",
-          "Piles Treatment Service",
-        ],
-      },
-      {
-        name: "Herbal Foods",
-        child: ["food"],
-      },
-      {
-        name: "Pure & Natural Herbs",
-        child: ["Pure Herbs", "Aloe Vera", "Split Cassia", "Herb Plant"],
-      },
-    ],
-  },
-  {
-    name: "Electronics",
-    slug: "electronics",
-    icon: <FaLaptop />,
-    sub: [
-      {
-        name: "Mobiles",
-        child: ["Android Phones", "iPhones", "Refurbished"],
-      },
-      {
-        name: "Laptops",
-        child: ["Gaming Laptops", "Business Laptops", "Student Laptops"],
-      },
-    ],
-  },
-  {
-    name: "Transportation & Logistics",
-    slug: "transportation",
-    icon: <FaTruck />,
-    sub: [
-      {
-        name: "Freight & Shipping",
-        child: ["Air Freight", "Sea Freight", "Road Transport", "Rail Cargo"],
-      },
-      {
-        name: "Logistics Services",
-        child: [
-          "Warehouse Services",
-          "Cold Storage",
-          "Supply Chain Management",
-        ],
-      },
-    ],
-  },
-
-  {
-    name: "Packaging Materials",
-    slug: "packaging",
-    icon: <FaBoxOpen />,
-    sub: [
-      {
-        name: "Industrial Packaging",
-        child: [
-          "Corrugated Boxes",
-          "Wooden Pallets",
-          "Stretch Film",
-          "Bubble Wrap",
-        ],
-      },
-      {
-        name: "Food Packaging",
-        child: ["Paper Containers", "Plastic Containers", "Foil Wraps"],
-      },
-    ],
-  },
-
-  {
-    name: "Machinery & Equipment",
-    slug: "machinery",
-    icon: <FaIndustry />,
-    sub: [
-      {
-        name: "Industrial Machinery",
-        child: ["CNC Machines", "Lathe Machines", "Drilling Machines"],
-      },
-      {
-        name: "Construction Equipment",
-        child: ["Concrete Mixers", "Excavators", "Crane Machines"],
-      },
-    ],
-  },
-
-  {
-    name: "Medical Equipment",
-    slug: "medical",
-    icon: <FaHospital />,
-    sub: [
-      {
-        name: "Hospital Equipment",
-        child: ["Hospital Beds", "Wheelchairs", "Surgical Instruments"],
-      },
-      {
-        name: "Diagnostic Equipment",
-        child: ["X-Ray Machines", "ECG Machines", "Ultrasound Machines"],
-      },
-    ],
-  },
-
-  {
-    name: "Personal Care & Cleaning",
-    slug: "personal-care",
-    icon: <FaPumpSoap />,
-    sub: [
-      {
-        name: "Personal Care",
-        child: ["Shampoo", "Soap", "Face Wash", "Toothpaste"],
-      },
-      {
-        name: "Cleaning Supplies",
-        child: ["Floor Cleaners", "Disinfectants", "Detergents"],
-      },
-    ],
-  },
-
-  {
-    name: "Home Furniture",
-    slug: "home",
-    icon: <FaCouch />,
-    sub: [
-      {
-        name: "Living Room",
-        child: ["Sofa Sets", "Center Tables", "TV Units"],
-      },
-      {
-        name: "Bedroom Furniture",
-        child: ["Beds", "Wardrobes", "Dressing Tables"],
-      },
-    ],
-  },
-];
+import { getCategories } from "../api";
 
 const Sidebar = () => {
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeSub, setActiveSub] = useState(null);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const res = await getCategories();
+      setCategories(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div
@@ -299,7 +42,7 @@ const Sidebar = () => {
             onMouseEnter={() => setActiveCategory(cat)}
             className="flex justify-between items-center px-2 py-3 cursor-pointer hover:bg-blue-100"
           >
-            <p className="text-sky-500">{cat.icon}</p>
+            <p className="text-sky-500 text-lg"></p>{" "}
             <Link to={`/category/${cat.slug}`}>
               <span className="text-sm font-medium md:-ml-12 active:bg-blue-200">
                 {cat.name}
@@ -320,18 +63,18 @@ const Sidebar = () => {
             </h4>
 
             <div className="space-y-2 max-h-[420px] overflow-y-auto pr-2">
-              {activeCategory.sub.map((sub, i) => (
+              {(activeCategory.subcategories || []).map((sub) => (
                 <div
-                  key={i}
+                  key={sub.slug}
                   onMouseEnter={() => setActiveSub(sub)}
                   className={`px-4 py-2 rounded-md cursor-pointer text-sm font-medium transition-all duration-200
             ${
-              activeSub?.name === sub.name
+              activeSub?.slug === sub.slug
                 ? "bg-sky-100 text-sky-600 border-l-4 border-sky-500"
-                : "hover:bg-gray-100 text-gray-200 py-4"
+                : "hover:bg-gray-100 text-gray-200"
             }`}
                 >
-                  {sub.name}
+                  {sub.title}
                 </div>
               ))}
             </div>
@@ -344,14 +87,14 @@ const Sidebar = () => {
             </h4>
 
             <div className="grid grid-cols-2 gap-3 max-h-[420px] overflow-y-auto pr-2">
-              {activeSub?.child?.map((item, i) => (
-                <div
-                  key={i}
-                  className="px-3 py-2 bg-gray-50 rounded-md text-sm cursor-pointer 
-            hover:bg-sky-50 hover:text-sky-600 transition-all duration-200 border border-transparent hover:border-sky-200"
+              {(activeSub?.products || []).map((item) => (
+                <Link
+                  key={item.slug}
+                  to={`/products/${item.slug}`}
+                  className="text-gray-200 hover:text-sky-400"
                 >
-                  {item}
-                </div>
+                  {item.name}
+                </Link>
               ))}
             </div>
           </div>

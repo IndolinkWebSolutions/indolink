@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { HiMenuAlt2, HiX, HiHome } from "react-icons/hi";
 import Sidebar from "./Sidebar";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const DNavbar = () => {
   const [open, setOpen] = useState(false);
-  const userName = "Sandhya";
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   return (
     <>
       {/* NAVBAR */}
       <div className="flex items-center justify-between h-[90px] px-6 border-b">
-
         {/* LEFT SIDE */}
         <div className="flex items-center gap-3">
           {/* Home Icon */}
@@ -24,10 +24,7 @@ const DNavbar = () => {
           </button>
 
           {/* Hamburger (mobile only) */}
-          <button
-            className="md:hidden text-2xl"
-            onClick={() => setOpen(true)}
-          >
+          <button className="md:hidden text-2xl" onClick={() => setOpen(true)}>
             <HiMenuAlt2 />
           </button>
 
@@ -42,7 +39,7 @@ const DNavbar = () => {
           onClick={() => navigate("/profile")}
           className="w-10 h-10 rounded-full bg-sky-600 text-white flex items-center justify-center font-bold cursor-pointer"
         >
-          {userName[0]}
+          {user?.name?.[0]?.toUpperCase() || "N/A"}
         </div>
       </div>
 

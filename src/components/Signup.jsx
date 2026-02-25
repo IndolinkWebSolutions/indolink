@@ -39,7 +39,7 @@ const Signup = () => {
       });
 
       
-      toast.success("Login successful");
+      toast.success("Account Created Successfully");
       navigate("/login");
     } catch (err) {
       setError(

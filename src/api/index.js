@@ -5,22 +5,20 @@ import publicApi from "./publicApi.js";
 //============Public API =================
 //========================================
 
-
 // GET all categories
 export const getCategories = () => {
   return publicApi.get("/products/categories/");
 };
 
-// GET single category + products by slug
-export const getCategoryDetails = (slug) => {
+// GET sub Category
+export const getSubCategory = (slug) => {
   return publicApi.get(`/categories/${slug}`);
 };
 
 //Create enquiry form
-export const enquiryForm = (formData)=>{
-  return publicApi.post("enquiries/home-enquiry/", formData)
-}
-
+export const enquiryForm = (formData) => {
+  return publicApi.post("enquiries/home-enquiry/", formData);
+};
 
 // login
 export const login = (data) => {
@@ -33,18 +31,22 @@ export const signup = (data) => {
 };
 
 // SEARCH products
-export const searchProducts = (q) =>{
+export const searchProducts = (q) => {
   return publicApi.get(`/products/search/?q=${q}`);
-  };
+};
 
-export const searchLeads = (q) =>{
+export const searchLeads = (q) => {
   return publicApi.get(`/leads/search/?q=${q}`);
+};
+
+// GET Single Product Details
+export const getProductDetails = (slug) => {
+  return publicApi.get(`/products/products/${slug}/`);
 };
 
 //===========================================================
 //============== only for authenticate user==================
 //===========================================================
-
 
 // ADD product
 export const addProduct = (data) => {
@@ -87,3 +89,27 @@ export const logout = async () => {
   localStorage.removeItem("refresh");
   window.location.href = "/login";
 };
+
+// Add Company
+export const addCompanyProfile = (data) => {
+  return api.post("dashboard/company-profile/", data);
+};
+
+// Get Company
+export const getCompanyProfile = () => {
+  return api.get("/dashboard/company-profile/");
+};
+
+// Leads                    
+export const getLeads = (pageSize = 20) => {
+  return publicApi.get(`/leads/search/?page_size=${pageSize}`);
+};
+
+// GET Latest Leads (Dashboard)
+export const getLatestLeads = () => {
+  return publicApi.get("/leads/search/?page_size=5");
+};
+
+export const getHistoryLeads = ()=>{
+  return api.get("leadsaccess/decrypt/<int:lead_id>/");
+}

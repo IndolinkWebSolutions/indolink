@@ -7,14 +7,14 @@ const Dashboard = () => {
   return (
     <div className="flex h-screen">
       {/* LEFT SIDEBAR */}
-       <div className="hidden md:block">
-    <Sidebar />
-  </div>
+      <div className="hidden md:block">
+        <Sidebar />
+      </div>
       {/* RIGHT CONTENT */}
       <div className="flex-1">
         {/* TOP NAVBAR */}
         <DNavbar />
-        <Dboard/>
+        <Dboard />
       </div>
     </div>
   );
