@@ -43,10 +43,12 @@ function SearchBox() {
   }, [query, searchType]); // 👈 dependency added
 
   const handleRedirect = (item) => {
+    console.log(item); // check this
+
     if (searchType === "products") {
       navigate(`/products/${item.slug}`);
     } else {
-      navigate(`/allLeads`);
+      navigate(`/leads/${item.slug}`);
     }
   };
 

@@ -1,26 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Header from "../components/Header";
-import Navbar from "../components/Navbar";
-import TopBar from "../components/TopBar";
+import { useParams } from "react-router-dom";
 
 const LeadsPage = () => {
-  const [leads, setLeads] = useState([]);
-  const token = localStorage.getItem("access"); // JWT token
+  const { slug } = useParams();
+
+  const [lead, setLead] = useState(null);
+
+  const token = localStorage.getItem("access");
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/leads/search/?page_size=20", {
+    fetch(`http://127.0.0.1:8000/leads/group/${slug}/`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => res.json())
+
       .then((data) => {
-        console.log(data); // 👈 check data
-        setLeads(data.results || []);
+        console.log(data);
+        setLead(data);
       })
-      .catch((err) => console.error(err));
-  }, []);
+
+      .catch((err) => console.log(err));
+  }, [slug]);
+
+  if (!lead) return <p>Loading...</p>;
 
   return (
     <>
@@ -33,7 +37,7 @@ const LeadsPage = () => {
 
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {leads?.map((lead) => (
+          {lead?.map((lead) => (
             <div
               key={lead.id}
               className="bg-white rounded-xl shadow-md border p-6 hover:shadow-lg transition"

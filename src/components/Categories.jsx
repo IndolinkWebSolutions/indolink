@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getCategories } from "../api";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -37,7 +37,7 @@ const Categories = () => {
           {/* CATEGORY TITLE */}
           <h2 className="text-2xl font-semibold mb-6">{category.name}</h2>
 
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-9">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
             {/* LEFT CATEGORY IMAGE */}
             <div className="lg:col-span-1 relative h-[340px] rounded-lg overflow-hidden bg-gray-200">
               {category.image ? (
@@ -62,41 +62,42 @@ const Categories = () => {
             </div>
 
             {/* SUBCATEGORIES */}
-            {(category?.subcategories || []).map((sub) => (
-              <div
-                key={sub.slug}
-                className="border border-gray-300 rounded-lg p-4 flex justify-between gap-4"
-              >
-                <div>
-                  <h3 className="font-semibold mb-2 flex items-center justify-between">
-                    {sub.title}
-                    <span className="text-sky-400 ml-2">➜</span>
-                  </h3>
+            <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+              {(category?.subcategories || []).slice(0, 6).map((sub) => (
+                <div
+                  key={sub.slug}
+                  className="border border-gray-200 rounded-lg p-3 flex justify-between items-center h-[130px] hover:shadow-lg hover:-translate-y-1 transition"
+                >
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-sm mb-1 flex justify-between">
+                      {sub.title}
+                      <span className="text-sky-400">➜</span>
+                    </h3>
 
-                  <ul className="space-y-1 text-sm text-sky-500">
-                    {(sub.products || []).map((product) => (
-                      <li key={product.slug}>
-                        <Link
-                          to={`/products/${product.slug}`}
-                          className="hover:underline text-sky-500"
-                        >
-                          {product.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+                    <ul className="text-xs text-sky-500 space-y-[2px]">
+                      {(sub.products || []).slice(0, 3).map((product) => (
+                        <li key={product.slug}>
+                          <Link
+                            to={`/products/${product.slug}`}
+                            className="hover:underline"
+                          >
+                            {product.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {sub.image && (
+                    <img
+                      src={sub.image}
+                      alt={sub.title}
+                      className="w-14 h-14 object-cover rounded"
+                    />
+                  )}
                 </div>
-
-                {sub.image && (
-                  <img
-                    src={sub.image}
-                    alt={sub.title}
-                    className="w-24 h-24 object-cover rounded"
-                    loading="lazy"
-                  />
-                )}
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       ))}

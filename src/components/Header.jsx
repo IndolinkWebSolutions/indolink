@@ -1,11 +1,11 @@
 import SearchBox from "./SearchBox";
 import logo from "../assets/logo.png";
-import { useContext, useState } from "react";
+import { Profiler, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { logout } from "../api";
 import { toast } from "react-toastify";
-import { LogOut } from "lucide-react";
+import { LogOut, User } from "lucide-react";
 
 function Header() {
   const [open, setOpen] = useState(false);
@@ -77,7 +77,9 @@ function Header() {
                   </div>
 
                   {/* Username */}
-                  <span className="font-medium text-uppercase">{user?.name}</span>
+                  <span className="font-medium text-uppercase">
+                    {user?.name}
+                  </span>
                 </div>
 
                 {/* Profile */}
@@ -88,6 +90,7 @@ function Header() {
                   }}
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center gap-2"
                 >
+                  <User size={18} />
                   My Profile
                 </div>
 

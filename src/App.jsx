@@ -43,7 +43,7 @@ function App() {
         <Route path="/membership" element={<Membership />} />
         <Route path="/category/:slug" element={<CategoryPage />} />
         <Route path="/products/:slug" element={<ProductDetailsPage />} />
-        <Route path="/allLeads" element={<LeadsPage/>}/>
+        <Route path="/leads/group/:slug" element={<LeadsPage/>}/>
 
         {/* dashboard */}
         {/* <Route path="/dashboard" element={<Dashboard />} />
