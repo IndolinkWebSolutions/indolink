@@ -8,7 +8,7 @@ function Navbar() {
   const navigate = useNavigate();
 
   return (
-    <nav className="w-full hidden md:flex bg-sky-500 text-white px-6 relative">
+    <nav className="w-full md:flex bg-sky-500 text-white px-6 relative">
       <div className="flex items-center gap-6 text-sm font-medium py-3">
         <div className="relative group">
           {/* TRIGGER */}

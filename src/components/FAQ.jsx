@@ -82,7 +82,7 @@ const FAQ = () => {
       {/* NEED MORE HELP */}
       <section className=" py-6">
         <div className="max-w-5xl px-6">
-          <div className="relative bg-[#111827] rounded-xl p-8 md:p-10 border-l-4 border-blue-500">
+          <div className="relative bg-[#111827] rounded-xl p-6 md:p-10 border-l-9 border-sky-500">
             <h3 className="text-2xl font-bold text-white mb-3">
               Need More Help?
             </h3>
@@ -95,17 +95,17 @@ const FAQ = () => {
             <div className="space-y-4 text-gray-200">
               <div className="flex items-center gap-3">
                 <span>📧</span>
-                <span>indolinkwebsolutions@gmail.com</span>
+                <span className="text-sm">indolinkwebsolutions@gmail.com</span>
               </div>
 
               <div className="flex items-center gap-3">
                 <span>📞</span>
-                <span>01145126483</span>
+                <span className="text-sm">01145126483</span>
               </div>
 
               <div className="flex items-center gap-3">
                 <span>💬</span>
-                <span>Live Chat: Available during business hours</span>
+                <span className="text-sm">Live Chat: Available during business hours</span>
               </div>
             </div>
           </div>

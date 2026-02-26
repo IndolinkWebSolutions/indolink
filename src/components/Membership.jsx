@@ -23,12 +23,12 @@ const plans = [
   },
   {
     name: "Premium Membership",
-    price: "₹1,10,000 + GST",
-    duration: "3 Years",
+    price: "₹24,000 + GST",
+    duration: "1 Year",
     highlight: true,
     features: [
       { text: "View & Buy Leads", available: true },
-      { text: "5 Leads Per Week", available: true },
+      { text: "2 Leads Per Week", available: true },
       { text: "Up to 5 Pages Website", available: true },
       { text: "SEO Friendly Design", available: true },
       { text: "24/7 Customer Support", available: true },

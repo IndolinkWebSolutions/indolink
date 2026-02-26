@@ -42,7 +42,7 @@ function Hero() {
         <div className="absolute inset-0 bg-black/40"></div>
 
         {/* Optional Text Content */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-3xl md:text-5xl font-bold">
+        <div className="absolute  inset-0 ml-5 md:ml-0 flex flex-col items-center justify-center text-white text-3xl md:text-5xl font-bold">
           <h1 className="text-white text-xl md:text-5xl font-bold leading-tight drop-shadow-lg">
             Connect. Trade. Grow Globally.
           </h1>

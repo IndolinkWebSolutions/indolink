@@ -39,7 +39,7 @@ const Categories = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
             {/* LEFT CATEGORY IMAGE */}
-            <div className="lg:col-span-1 relative h-[340px] rounded-lg overflow-hidden bg-gray-200">
+            <div className="lg:col-span-2 relative h-[340px] rounded-lg overflow-hidden bg-gray-200">
               {category.image ? (
                 <div
                   className="absolute inset-0 bg-cover bg-center"
@@ -53,7 +53,7 @@ const Categories = () => {
 
               {/* Overlay */}
               <div className="absolute inset-0 bg-black/50 p-4 flex flex-col justify-end">
-                <div className="text-white text-sm space-y-1">
+                <div className="text-gray-300 text-sm font-bold space-y-2">
                   {(category?.subcategories || []).map((sub) => (
                     <p key={sub.slug}>{sub.title}</p>
                   ))}
@@ -62,24 +62,23 @@ const Categories = () => {
             </div>
 
             {/* SUBCATEGORIES */}
-            <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-2">
               {(category?.subcategories || []).slice(0, 6).map((sub) => (
                 <div
                   key={sub.slug}
-                  className="border border-gray-200 rounded-lg p-3 flex justify-between items-center h-[130px] hover:shadow-lg hover:-translate-y-1 transition"
+                  className="border border-gray-200 rounded-lg p-4 h-[160px]  flex justify-between items-center h-[130px] hover:shadow-lg hover:-translate-y-1 transition"
                 >
                   <div className="flex-1">
-                    <h3 className="font-semibold text-sm mb-1 flex justify-between">
+                    <h3 className="font-semibold text-md mb-1 flex justify-between">
                       {sub.title}
-                      <span className="text-sky-400">➜</span>
                     </h3>
 
-                    <ul className="text-xs text-sky-500 space-y-[2px]">
-                      {(sub.products || []).slice(0, 3).map((product) => (
+                    <ul className="text-sm text-sky-500 space-y-[2px]">
+                      {(sub.products || []).slice(0, 5).map((product) => (
                         <li key={product.slug}>
                           <Link
                             to={`/products/${product.slug}`}
-                            className="hover:underline"
+                            className="hover:text-blue-300"
                           >
                             {product.name}
                           </Link>
@@ -92,7 +91,7 @@ const Categories = () => {
                     <img
                       src={sub.image}
                       alt={sub.title}
-                      className="w-14 h-14 object-cover rounded"
+                      className="w-24 h-24 object-cover rounded"
                     />
                   )}
                 </div>

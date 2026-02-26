@@ -4,6 +4,8 @@ import { addCompanyProfile, getCompanyProfile } from "../api/index.js";
 import { Building } from "lucide-react";
 
 const CompanyProfile = () => {
+  const [showModal, setShowModal] = useState(false);
+
   const [company, setCompany] = useState({
     company_name: "",
     address: "",
@@ -13,6 +15,7 @@ const CompanyProfile = () => {
   });
 
   const [savedData, setSavedData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // Input Change
   const handleChange = (e) => {
@@ -27,147 +30,184 @@ const CompanyProfile = () => {
     try {
       await addCompanyProfile(company);
 
-      toast.success("Company Profile Saved ✅");
+      toast.success("Company Added ✅");
+
+      setShowModal(false);
 
       fetchCompany();
-    } catch (error) {
+    } catch {
       toast.error("Error ❌");
     }
   };
 
-  // Load Company Profile
+  // Fetch Company
+  const fetchCompany = async () => {
+    try {
+      const res = await getCompanyProfile();
+
+      const data = res?.data;
+
+      // If no real company
+      if (!data || !data.company_name) {
+        setSavedData(null);
+        return;
+      }
+
+      setSavedData(data);
+    } catch (error) {
+      // No company found
+      setSavedData(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchCompany();
   }, []);
 
- const fetchCompany = async () => {
-  try {
-    const res = await getCompanyProfile();
-
-    if (res.data) {
-      setSavedData(res.data);
-    } else {
-      setSavedData(null);
-    }
-  } catch (error) {
-    setSavedData(null);
-  }
-};
-
   return (
     <div className="bg-white w-[450px] rounded-lg shadow p-6">
-      <div className="flex items-center mb-4">
-        <Building className="text-black mr-2" />
+      {/* Header */}
 
-        <h2 className="font-bold text-md">Company Profile</h2>
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex">
+          <Building className="mr-2" />
+
+          <h2 className="font-bold">Company Profile</h2>
+        </div>
+
+        {/* Add Button */}
+
+{!savedData?.company_name && !loading && (          <button
+            onClick={() => setShowModal(true)}
+            className="bg-sky-600 text-white px-3 py-2 rounded-lg"
+          >
+            + Add Company
+          </button>
+        )}
       </div>
 
-      {/* Show Data */}
+      {/* SHOW COMPANY */}
 
-      {savedData ? (
-        <div className="bg-gray-50 rounded-xl p-5 shadow-sm space-y-4">
-          {/* Company Name */}
+      {savedData?.company_name && (
+        <div className="bg-gray-50 rounded-xl p-5 space-y-3">
           <div className="flex justify-between border-b pb-2">
-            <span className="text-gray-500 font-medium">Company Name</span>
+            <span>Company</span>
 
-            <span className="font-semibold text-gray-800">
-              {savedData.company_name}
-            </span>
+            <span className="font-semibold">{savedData.company_name}</span>
           </div>
 
-          {/* Address */}
           <div className="flex justify-between border-b pb-2">
-            <span className="text-gray-500 font-medium">Address</span>
+            <span>Address</span>
 
-            <span className="font-semibold text-gray-800">
-              {savedData.address}
-            </span>
+            <span className="font-semibold">{savedData.address}</span>
           </div>
 
-          {/* GST */}
           <div className="flex justify-between border-b pb-2">
-            <span className="text-gray-500 font-medium">GST Number</span>
+            <span>GST</span>
 
-            <span className="font-semibold text-gray-800">
-              {savedData.company_gst}
-            </span>
+            <span className="font-semibold">{savedData.company_gst}</span>
           </div>
 
-          {/* IEC */}
           <div className="flex justify-between border-b pb-2">
-            <span className="text-gray-500 font-medium">IEC Code</span>
+            <span>IEC</span>
 
-            <span className="font-semibold text-gray-800">
-              {savedData.company_iec}
-            </span>
+            <span className="font-semibold">{savedData.company_iec}</span>
           </div>
 
-          {/* Business Type */}
           <div className="flex justify-between">
-            <span className="text-gray-500 font-medium">Business Type</span>
+            <span>Type</span>
 
-            <span className="bg-sky-100 text-sky-700 px-3 py-1 rounded-lg text-sm font-semibold">
+            <span className="bg-sky-100 px-3 py-1 rounded">
               {savedData.business_type}
             </span>
           </div>
         </div>
-      ) : (
-        /* Form */
+      )}
 
-        <div className="space-y-4">
-          <input
-            name="company_name"
-            value={company.company_name}
-            onChange={handleChange}
-            className="w-full border rounded px-3 py-2"
-            placeholder="Company Name"
-          />
+      {/* IF NO COMPANY */}
 
-          <input
-            name="address"
-            value={company.address}
-            onChange={handleChange}
-            className="w-full border rounded px-3 py-2"
-            placeholder="Address"
-          />
+      {!savedData && !loading && (
+        <div className="text-center text-gray-500 mt-10">
+          No Company Profile Found
+          <br />
+          Click Add Company
+        </div>
+      )}
 
-          <div className="grid grid-cols-2 gap-4">
-            <input
-              name="company_gst"
-              value={company.company_gst}
-              onChange={handleChange}
-              className="border rounded px-3 py-2"
-              placeholder="GST"
-            />
+      {/* MODAL */}
 
-            <input
-              name="company_iec"
-              value={company.company_iec}
-              onChange={handleChange}
-              className="border rounded px-3 py-2"
-              placeholder="IEC"
-            />
+      {showModal && (
+        <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-xl w-[400px]">
+            <h2 className="font-bold mb-4">Add Company Profile</h2>
+
+            <div className="space-y-3">
+              <input
+                name="company_name"
+                value={company.company_name}
+                onChange={handleChange}
+                className="w-full border p-2 rounded"
+                placeholder="Company Name"
+              />
+
+              <input
+                name="address"
+                value={company.address}
+                onChange={handleChange}
+                className="w-full border p-2 rounded"
+                placeholder="Address"
+              />
+
+              <div className="flex gap-3">
+                <input
+                  name="company_gst"
+                  value={company.company_gst}
+                  onChange={handleChange}
+                  className="border p-2 rounded w-full"
+                  placeholder="GST"
+                />
+
+                <input
+                  name="company_iec"
+                  value={company.company_iec}
+                  onChange={handleChange}
+                  className="border p-2 rounded w-full"
+                  placeholder="IEC"
+                />
+              </div>
+
+              <select
+                name="business_type"
+                value={company.business_type}
+                onChange={handleChange}
+                className="w-full border p-2 rounded"
+              >
+                <option>Manufacturer</option>
+
+                <option>Trader</option>
+
+                <option>Exporter</option>
+              </select>
+
+              <div className="flex justify-end gap-3 mt-4">
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="border px-4 py-2 rounded"
+                >
+                  Cancel
+                </button>
+
+                <button
+                  onClick={handleSubmit}
+                  className="bg-sky-600 text-white px-4 py-2 rounded"
+                >
+                  Save
+                </button>
+              </div>
+            </div>
           </div>
-
-          <select
-            name="business_type"
-            value={company.business_type}
-            onChange={handleChange}
-            className="w-full border rounded px-3 py-2"
-          >
-            <option>Manufacturer</option>
-
-            <option>Trader</option>
-
-            <option>Exporter</option>
-          </select>
-
-          <button
-            onClick={handleSubmit}
-            className="bg-sky-600 text-white px-6 py-2 rounded"
-          >
-            Save Details
-          </button>
         </div>
       )}
     </div>

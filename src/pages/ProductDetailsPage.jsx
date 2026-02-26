@@ -73,14 +73,16 @@ const ProductDetailsPage = () => {
               {product?.description}
             </p>
 
-            <button className="w-fit px-8 py-3 bg-sky-600 text-white rounded-lg text-lg hover:bg-sky-700 transition">
-              Enquiry Now
-            </button>
+            <Link to="/contact">
+              <button className="w-fit px-8 py-3 bg-sky-600 text-white rounded-lg text-lg hover:bg-sky-700 transition">
+                Enquiry Now
+              </button>
+            </Link>
           </div>
         </div>
 
         {/* SPECIFICATIONS */}
-        <div className="mt-12">
+        {/* <div className="mt-12">
           <h2 className="text-2xl font-semibold mb-6 border-b pb-2">
             Product Specifications
           </h2>
@@ -144,7 +146,6 @@ const ProductDetailsPage = () => {
           </div>
         </div>
 
-        {/* FEATURES */}
         <div className="mt-12">
           <h2 className="text-2xl font-semibold mb-6 border-b pb-2">
             Product Features
@@ -164,7 +165,7 @@ const ProductDetailsPage = () => {
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <Footer />

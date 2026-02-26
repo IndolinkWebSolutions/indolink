@@ -22,7 +22,7 @@ const SavedProducts = () => {
   }, []);
 
   return (
-    <div className="flex bg-gray-100 h-screen">
+    <div className="flex bg-gray-100 h-screen ">
       <div className="hidden md:block">
         <Sidebar />
       </div>
@@ -35,7 +35,7 @@ const SavedProducts = () => {
             <h1 className="text-2xl font-semibold mb-6">Products</h1>
             <button
               onClick={() => setShowModal(true)}
-              className="bg-black text-white px-4 py-2 font-bold"
+              className="bg-sky-700 text-white px-4 py-2 font-bold"
             >
               + Add Product
             </button>
@@ -43,7 +43,7 @@ const SavedProducts = () => {
 
           <div className="bg-white rounded-xl shadow-md overflow-hidden">
             <table className="w-full text-left">
-              <thead className="bg-gradient-to-r from-sky-600 to-indigo-600 text-white">
+              <thead className="bg-gradient-to-r from-sky-600 to-indigo-300 text-white">
                 <tr>
                   <th className="p-4">Product</th>
                   <th className="p-4">Category</th>
@@ -54,10 +54,10 @@ const SavedProducts = () => {
               <tbody className="text-sm">
                 {products.length > 0 ? (
                   products.map((p) => (
-                    <tr key={p._id} className="border-b hover:bg-blue-50">
+                    <tr key={p._id} className="border-b border-b-sky-100 hover:bg-blue-50">
                       <td className="p-4 font-medium">{p.products_name}</td>
                       <td className="p-4">
-                        <span className="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-700">
+                        <span className="px-3 py-1 text-xs rounded-full bg-sky-100 text-sky-600">
                           {p.category}
                         </span>
                       </td>

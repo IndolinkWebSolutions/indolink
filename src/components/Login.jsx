@@ -21,7 +21,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { user, loadUser } = useContext(AuthContext);
+  const { loadUser } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,7 +41,7 @@ const Login = () => {
       // 🔥 NOW fetch authenticated user
       await loadUser();
       toast.success("Login successful");
-      navigate("/");
+      navigate("/dashboard");
     } catch (err) {
       setError(err.response?.data?.error || "Invalid username or password");
     } finally {
@@ -49,11 +49,7 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
-    if (user) {
-      navigate("/dashboard");
-    }
-  }, [user]);
+ 
 
   return (
     <>
@@ -93,7 +89,7 @@ const Login = () => {
                   placeholder="Username"
                   onChange={(e) => setUsername(e.target.value)}
                   required
-                  className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-sky-400"
+                  className="w-full mt-1 px-4 py-2 border border-sky-700 outline-none rounded-lg focus:ring-2 focus:ring-sky-400"
                 />
               </div>
 
@@ -102,7 +98,7 @@ const Login = () => {
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-sky-400"
+                  className="w-full px-4 py-2 border rounded-lg border-sky-700 outline-none focus:ring-2 focus:ring-sky-400"
                 />
 
                 <span

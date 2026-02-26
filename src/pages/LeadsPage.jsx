@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { getGroupedLeads } from "../api/index";
-import TopBar from '../components/TopBar';
-import Header from '../components/Header';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-
+import TopBar from "../components/TopBar";
+import Header from "../components/Header";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import { AuthContext } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 const LeadsPage = () => {
   const { slug } = useParams();
-  const [leads, setLeads] = useState([]); // ✅ array
+  const [leads, setLeads] = useState([]);
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getGroupedLeads(slug)
@@ -17,13 +20,24 @@ const LeadsPage = () => {
       .catch((err) => console.log(err));
   }, [slug]);
 
+  const handleViewLead = () => {
+    if (!user) {
+      toast.success("Please login first to view leads");
+      navigate("/login", {
+        state: { redirectTo: `/leads}` },
+      });
+    } else {
+      navigate(`/leads`);
+    }
+  };
+
   if (!leads) return <p>Loading...</p>;
 
   return (
     <>
-      < TopBar />
-      < Header />
-      < Navbar />
+      <TopBar />
+      <Header />
+      <Navbar />
       <div className="bg-gray-100 min-h-screen p-6">
         <h1 className="text-2xl font-semibold mb-6">Related Buyer Leads</h1>
 
@@ -78,11 +92,12 @@ const LeadsPage = () => {
 
                 {/* Unlock / Contact */}
                 <div className="mt-5 flex justify-end">
-                  <Link to={`/lead/${lead.id}`}>
-                    <button className="bg-sky-600 text-white px-5 py-2 rounded-lg hover:bg-sky-700">
-                      View Lead
-                    </button>
-                  </Link>
+                  <button
+                    onClick={() => handleViewLead(lead)}
+                    className="bg-sky-600 text-white px-5 py-2 rounded-lg hover:bg-sky-700"
+                  >
+                    View Lead
+                  </button>
                 </div>
               </div>
             ))
@@ -90,7 +105,7 @@ const LeadsPage = () => {
         </div>
       </div>
 
-      < Footer />
+      <Footer />
     </>
   );
 };

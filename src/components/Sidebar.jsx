@@ -23,7 +23,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className="relative w-72 bg-white shadow-lg"
+      className="relative h-[65vh] w-72 bg-white shadow-lg"
       onMouseLeave={() => {
         setActiveCategory(null);
         setActiveSub(null);

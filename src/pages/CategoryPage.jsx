@@ -10,32 +10,30 @@ const CategoryPage = () => {
   const { slug } = useParams();
 
   const [category, setCategory] = useState(null);
-  const [products, setProducts] = useState([]);
+
   const [loading, setLoading] = useState(true);
+
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchCategoryProducts = async () => {
+    const fetchCategories = async () => {
       try {
-        setLoading(true);
+        const { data } = await getCategories();
 
-        const { data } = await getCategories(slug);
+        // Find category by slug
+        const selectedCategory = data.find((cat) => cat.slug === slug);
 
-        setCategory(data.category);
-        setProducts(data.products);
-        setError(null);
-      } catch (err) {
+        setCategory(selectedCategory || null);
+      } catch (error) {
+        console.error("Category fetch error:", error);
+
         setError("Failed to load category");
-        setCategory(null);
-        setProducts([]);
       } finally {
         setLoading(false);
       }
     };
 
-    if (slug) {
-      fetchCategoryProducts();
-    }
+    fetchCategories();
   }, [slug]);
 
   return (
@@ -44,59 +42,63 @@ const CategoryPage = () => {
       <Header />
       <Navbar />
 
-      {/* Main Content */}
       <div className="flex-grow px-6 py-8">
         {loading && (
           <div className="text-center py-20 text-lg font-medium">
-            Loading products...
+            Loading...
           </div>
         )}
 
         {error && <div className="text-center text-red-500 py-20">{error}</div>}
 
-        {!loading && !error && (
+        {!loading && !error && category && (
           <>
             {/* Category Info */}
-            <div className="mb-8">
-              <h1 className="text-3xl font-bold capitalize">
-                {category?.name}
+            <div className="mb-8 bg-white shadow-sm rounded-xl p-6 border border-gray-200">
+              <h1 className="text-3xl font-bold capitalize text-gray-800">
+                {category.name}
               </h1>
-              <p className="text-gray-600 mt-2">{category?.description}</p>
+
+              <div className="w-16 h-1 bg-sky-500 mt-3 rounded"></div>
+
+              <p className="text-gray-500 mt-3 text-sm">
+                Browse all products under {category.name}
+              </p>
             </div>
 
-            {/* SubCategories Grid */}
+            {/* SubCategories */}
 
-            {category?.length > 0 ? (
+            {category.subcategories?.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {category.slice(0, 8).map((sub) => (
+                {category.subcategories.map((sub) => (
                   <div
                     key={sub.slug}
-                    className="relative rounded-xl overflow-hidden shadow-md group cursor-pointer"
+                    className="relative rounded-xl overflow-hidden shadow-md group"
                   >
-                    {/* Image */}
-
                     <Link to={`/subcategory/${sub.slug}`}>
                       <img
                         src={sub.image}
                         alt={sub.title}
-                        className="w-full h-64 object-cover group-hover:scale-105 transition duration-300"
+                        className="w-full h-56 object-cover group-hover:scale-105 transition"
                       />
                     </Link>
-
-                    {/* Overlay */}
 
                     <div className="absolute inset-0 bg-black/50 p-4 flex flex-col justify-end">
                       <h3 className="text-white font-semibold text-lg mb-2">
                         {sub.title}
                       </h3>
-
-                      {/* Product Names */}
-
-                      <div className="text-white text-sm space-y-1">
-                        {(sub.products || []).slice(0, 5).map((product) => (
-                          <p key={product.slug}>• {product.name}</p>
+                      <div className="text-gray-200 grid grid-cols-2 text-sm font-semibold space-y-1">
+                        {(sub.products || []).map((product) => (
+                          <Link
+                            key={product.slug}
+                            to={`/products/${product.slug}`}
+                            className="block hover:text-sky-500"
+                          >
+                            - {product.name}
+                          </Link>
                         ))}
                       </div>
+                      2
                     </div>
                   </div>
                 ))}
@@ -110,7 +112,6 @@ const CategoryPage = () => {
         )}
       </div>
 
-      {/* Footer Always Bottom */}
       <Footer />
     </div>
   );

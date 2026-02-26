@@ -79,7 +79,7 @@ const AddProductModal = ({ onClose, onAdded }) => {
             <button
               type="submit"
               disabled={loading}
-              className="px-4 py-2 bg-black text-white rounded-lg"
+              className="px-4 py-2 bg-sky-600 text-white rounded-lg"
             >
               {loading ? "Saving..." : "Add Product"}
             </button>

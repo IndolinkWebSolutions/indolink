@@ -4,7 +4,7 @@ import DNavbar from "./DNavbar";
 
 const Leads = () => {
   const [leads, setLeads] = useState([]);
-  const token = localStorage.getItem("access"); // JWT token
+  const token = localStorage.getItem("access");
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/leads/search/?page_size=20", {
