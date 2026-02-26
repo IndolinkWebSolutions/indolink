@@ -110,11 +110,22 @@ export const getLatestLeads = () => {
   return publicApi.get("/leads/search/?page_size=5");
 };
 
-export const getHistoryLeads = ()=>{
-  return api.get("leadsaccess/decrypt/<int:lead_id>/");
+// export const getHistoryLeads = ()=>{
+//   return api.get("leadsaccess/decrypt/<int:lead_id>/");
 
-}
+// }
 
 export const getGroupedLeads = (slug) => {
   return publicApi.get(`/leads/group/${slug}/`);
+};
+
+// Unlock Lead
+export const unlockLeadApi = (lead_id) => {
+  return api.post(`leads/unlock/${lead_id}/`);
+};
+
+
+// Leads History (User Specific)
+export const getHistoryLeads = () => {
+  return api.get(`leads/history/`);
 };

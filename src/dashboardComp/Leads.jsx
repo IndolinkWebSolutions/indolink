@@ -1,23 +1,53 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import DNavbar from "./DNavbar";
+import { getLeads, unlockLeadApi } from "../api";
 
 const Leads = () => {
   const [leads, setLeads] = useState([]);
-  const token = localStorage.getItem("access");
+  const [loading, setLoading] = useState(false);
 
+  /* ---------------- FETCH LEADS ---------------- */
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/leads/search/?page_size=20", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setLeads(data.results || []);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  const fetchLeads = async () => {
+    try {
+      setLoading(true);
+      const res = await getLeads(20);
+
+      console.log("Full Response:", res);
+
+      // Safe handling for both paginated and non-paginated
+      const leadsData =
+        res?.data?.results || res?.data || res?.results || [];
+
+      setLeads(leadsData);
+    } catch (error) {
+      console.error("Error fetching leads:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchLeads();
+}, []);
+
+  /* ---------------- UNLOCK LEAD ---------------- */
+  const handleUnlock = async (leadId) => {
+    try {
+      const updatedLead = await unlockLeadApi(leadId);
+
+      // Replace unlocked lead in UI
+      setLeads((prev) =>
+        prev.map((lead) =>
+          lead.id === leadId
+            ? { ...updatedLead, is_unlocked: true }
+            : lead
+        )
+      );
+    } catch (error) {
+      alert("Weekly limit exceeded or unable to unlock.");
+    }
+  };
 
   return (
     <div className="flex bg-gray-100 h-screen">
@@ -30,11 +60,11 @@ const Leads = () => {
       <div className="flex-1 flex flex-col">
         <DNavbar />
 
-        {/* PAGE CONTENT */}
         <div className="p-6 overflow-auto">
-          <h1 className="text-2xl text-sky-800 font-semibold mb-6">Leads</h1>
+          <h1 className="text-2xl text-sky-800 font-semibold mb-6">
+            All Leads
+          </h1>
 
-          {/* LEADS TABLE */}
           <div className="bg-white rounded-lg shadow overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead className="bg-gradient-to-r from-sky-600 to-indigo-600 text-white">
@@ -43,24 +73,42 @@ const Leads = () => {
                   <th className="p-4">Company</th>
                   <th className="p-4">Email</th>
                   <th className="p-4">Location</th>
-                  <th className="p-4">Mobile Number</th>
+                  <th className="p-4">Mobile</th>
                   <th className="p-4">Requirements</th>
                   <th className="p-4">Date</th>
+                  <th className="p-4 text-center">Action</th>
                 </tr>
               </thead>
 
               <tbody className="text-sm">
-                {leads.length === 0 ? (
+                {loading ? (
                   <tr>
-                    <td colSpan="5" className="p-6 text-center text-gray-500">
+                    <td colSpan="8" className="p-6 text-center">
+                      Loading leads...
+                    </td>
+                  </tr>
+                ) : leads.length === 0 ? (
+                  <tr>
+                    <td colSpan="8" className="p-6 text-center text-gray-500">
                       No leads found
                     </td>
                   </tr>
                 ) : (
                   leads.map((lead) => (
-                    <tr key={lead.id} className="border-t hover:bg-gray-50">
+                    <tr
+                      key={lead.id}
+                      className="border-t hover:bg-gray-50 transition"
+                    >
                       <td className="p-4 font-medium">{lead.name}</td>
-                      <td className="p-4">🔒 Locked</td>
+
+                      <td className="p-4">
+                        {lead.is_unlocked ? (
+                          lead.company
+                        ) : (
+                          <span className="text-gray-400">🔒 Locked</span>
+                        )}
+                      </td>
+
                       <td className="p-4">{lead.email}</td>
                       <td className="p-4">{lead.location}</td>
                       <td className="p-4">{lead.mobile_number}</td>
@@ -68,8 +116,24 @@ const Leads = () => {
                       <td className="p-4">
                         {lead.requirements?.slice(0, 40)}...
                       </td>
+
                       <td className="p-4 text-red-500">
                         {new Date(lead.created_at).toLocaleDateString()}
+                      </td>
+
+                      <td className="p-4 text-center">
+                        {lead.is_unlocked ? (
+                          <span className="text-green-600 font-semibold">
+                            Unlocked ✓
+                          </span>
+                        ) : (
+                          <button
+                            onClick={() => handleUnlock(lead.id)}
+                            className="bg-sky-600 text-white px-3 py-1 rounded hover:bg-sky-700 transition"
+                          >
+                            Unlock
+                          </button>
+                        )}
                       </td>
                     </tr>
                   ))

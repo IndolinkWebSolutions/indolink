@@ -97,6 +97,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/leads-history"
+          element={
+            <ProtectedRoute>
+              <LeadsHistory />
+            </ProtectedRoute>
+          }
+        />
 
         <Route
           path="/help"
