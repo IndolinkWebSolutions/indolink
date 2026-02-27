@@ -41,9 +41,10 @@ const LeadsHistory = () => {
             <table className="w-full text-left">
               <thead>
                 <tr className="border-b">
-                  <th className="py-3">Name</th>
+                  <th className="py-3">Product Name</th>
                   <th>Company</th>
                   <th>Email</th>
+                  <th>Phone No</th>
                   <th>Date</th>
                 </tr>
               </thead>
@@ -67,6 +68,7 @@ const LeadsHistory = () => {
                       <td className="py-3">{lead.name}</td>
                       <td>{lead.company}</td>
                       <td>{lead.email}</td>
+                      <td>{lead.mobile_number}</td>
                       <td>
                         {new Date(lead.created_at).toLocaleDateString()}
                       </td>
