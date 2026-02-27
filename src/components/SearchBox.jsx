@@ -56,7 +56,7 @@ function SearchBox() {
     <>
       {/* 🔍 Mobile Icon */}
       <button className="md:hidden p-2" onClick={() => setOpen(true)}>
-        <Search size={22} />
+        <Search size={16} />
       </button>
 
       {/* 🖥 Desktop Search */}

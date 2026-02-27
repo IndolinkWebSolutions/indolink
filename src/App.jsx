@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
@@ -23,11 +23,50 @@ import ProductDetailsPage from "./pages/ProductDetailsPage";
 import { ToastContainer } from "react-toastify";
 import LeadsHistory from "./dashboardComp/LeadsHistory";
 import LeadsPage from "./pages/LeadsPage";
+import { useEffect } from "react";
+import { loginSuccess, setLoading } from "./slice/authSlice";
+import { useDispatch } from "react-redux";
+import { getProfile } from "./api/index";
 
 function App() {
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  const loadUser = async () => {
+    const token = localStorage.getItem("access");
+
+    console.log("Token:", token);
+
+    if (!token) {
+      dispatch(setLoading());
+      return;
+    }
+
+    try {
+      const res = await getProfile();
+
+      console.log(res.data);
+
+      dispatch(
+        loginSuccess({
+          user: res.data,
+          token: token,
+        }),
+      );
+    } catch (err) {
+      dispatch(setLoading());
+    }
+  };
+
+  useEffect(() => {
+    console.log("App Loaded");
+
+    loadUser();
+  }, []);
+
   return (
     <AnimatePresence mode="wait">
-      <ToastContainer position="top-right"  theme="dark" autoClose={2000} />
+      <ToastContainer position="top-right" theme="dark" autoClose={2000} />
 
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
@@ -43,7 +82,7 @@ function App() {
         <Route path="/membership" element={<Membership />} />
         <Route path="/category/:slug" element={<CategoryPage />} />
         <Route path="/products/:slug" element={<ProductDetailsPage />} />
-        <Route path="/leads/group/:slug" element={<LeadsPage/>}/>
+        <Route path="/leads/group/:slug" element={<LeadsPage />} />
 
         {/* dashboard */}
         {/* <Route path="/dashboard" element={<Dashboard />} />
@@ -106,7 +145,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-      </Routes> 
+      </Routes>
     </AnimatePresence>
   );
 }

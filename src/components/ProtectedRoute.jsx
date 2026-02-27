@@ -1,12 +1,22 @@
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
-  const token = localStorage.getItem("access");
+  const { isAuthenticated, loading } = useSelector((state) => state.auth);
 
-  if (!token) {
-    return <Navigate to="/login" replace />;
+  console.log(isAuthenticated, loading);
+
+  // Wait until auth check finishes
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
+  // If not logged in
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace/>;
+  }
+
+  // If logged in
   return children;
 };
 

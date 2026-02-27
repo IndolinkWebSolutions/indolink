@@ -6,7 +6,6 @@ import { AuthContext } from "../context/AuthContext";
 import { logout } from "../api";
 import { toast } from "react-toastify";
 import { List, LogOut, User } from "lucide-react";
-import { GrDashboard } from "react-icons/gr";
 
 function Header() {
   const [open, setOpen] = useState(false);
@@ -41,14 +40,14 @@ function Header() {
           <div className="flex gap-3">
             <button
               onClick={() => navigate("/login")}
-              className="px-4 py-2 md:flex hidden border border-sky-600 text-sky-600 rounded-md hover:bg-sky-50 font-medium"
+              className="md:px-4 md:py-2  border border-sky-600 text-sky-600 rounded-md hover:bg-sky-50 md:font-medium md:text-sm text-xs p-2"
             >
               Login
             </button>
 
             <button
               onClick={() => navigate("/signup")}
-              className="px-4  py-2 bg-sky-600 text-white rounded-md hover:bg-sky-700 font-medium"
+              className="md:px-4 md:py-2 bg-sky-600 text-white rounded-md hover:bg-sky-700 md:font-medium md:text-sm text-xs p-2"
             >
               Signup
             </button>

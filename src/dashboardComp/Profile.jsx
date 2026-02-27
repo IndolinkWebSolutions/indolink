@@ -141,7 +141,7 @@ const Profile = () => {
             </div>
 
             {/* SECURITY CARD */}
-            <div className="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition">
+            {/* <div className="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition">
               <div className="mb-5">
                 <h2 className="font-semibold text-lg">Security</h2>
 
@@ -183,7 +183,7 @@ const Profile = () => {
                   Update Password
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

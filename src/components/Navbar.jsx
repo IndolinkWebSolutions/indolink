@@ -3,13 +3,27 @@ import file from "../assets/file.png";
 import shield from "../assets/shield.png";
 import refund from "../assets/refund.png";
 import box from "../assets/box.png";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 
 function Navbar() {
   const navigate = useNavigate();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [tradeOpen, setTradeOpen] = useState(false);
+  const [sellerOpen, setSellerOpen] = useState(false);
 
   return (
     <nav className="w-full md:flex bg-sky-500 text-white px-6 relative">
-      <div className="flex items-center gap-6 text-sm font-medium py-3">
+      {/* Mobile Header */}
+      <div className="md:hidden flex justify-between items-center py-3">
+        <button onClick={() => setMobileOpen(true)}>
+          <Menu size={28} />
+        </button>
+
+        <span className="font-semibold">Menu</span>
+      </div>
+      <div className="hidden md:flex items-center gap-6 text-sm font-medium py-3">
+        {" "}
         <div className="relative group">
           {/* TRIGGER */}
           <span className="cursor-pointer flex items-center gap-2 text-white">
@@ -82,7 +96,6 @@ function Navbar() {
             </div>
           </div>
         </div>
-
         <div className="relative group">
           {/* Trigger */}
           <span className="cursor-pointer flex items-center gap-2 font-semibold tracking-wide text-white">
@@ -168,7 +181,6 @@ function Navbar() {
             </div>
           </div>
         </div>
-
         <Link to="/faq">
           {" "}
           <span className="cursor-pointer">HELP CENTER</span>
@@ -177,6 +189,77 @@ function Navbar() {
           <span className="cursor-pointer">BECOME A SUPPLIER</span>
         </Link>
       </div>
+      {/* Mobile Menu */}
+
+      {mobileOpen && (
+        <div className="fixed inset-0 bg-black/40 z-50">
+          <div className="bg-white w-72 h-full p-5">
+            <div className="flex justify-between mb-6">
+              <h2 className="font-bold">Menu</h2>
+
+              <button onClick={() => setMobileOpen(false)}>
+                <X />
+              </button>
+            </div>
+
+            <div className="space-y-4 text-sky-500">
+              {/* Trade Assurance */}
+
+              <div>
+                <div
+                  onClick={() => setTradeOpen(!tradeOpen)}
+                  className="flex justify-between cursor-pointer"
+                >
+                  <span className=" font-bold">Trade Assurance</span>
+
+                  <span>▾</span>
+                </div>
+
+                {tradeOpen && (
+                  <div className="ml-4 mt-2 space-y-2 text-gray-600">
+                    <div onClick={() => navigate("/terms")}>Terms & Conditions</div>
+
+                    <div onClick={() => navigate("/privacy")}>Privacy</div>
+
+                    <div onClick={() => navigate("/refund")}>Refund</div>
+
+                    <div onClick={() => navigate("/shipping")}>Shipping</div>
+                  </div>
+                )}
+              </div>
+
+              {/* Seller Central */}
+
+              <div>
+                <div
+                  onClick={() => setSellerOpen(!sellerOpen)}
+                  className="flex justify-between cursor-pointer"
+                >
+                  <span className="font-bold">Seller Central</span>
+
+                  <span>▾</span>
+                </div>
+
+                {sellerOpen && (
+                  <div className="ml-4 mt-2 space-y-2 text-gray-600">
+                    <div onClick={() => navigate("/about")}>About</div>
+
+                    <div onClick={() => navigate("/membership")}>
+                      Membership
+                    </div>
+
+                    <div onClick={() => navigate("/signup")}>My Account</div>
+                  </div>
+                )}
+              </div>
+
+              <div className="font-bold" onClick={() => navigate("/faq")}>Help Center</div>
+
+              <div className="font-bold" onClick={() => navigate("/contact")}>Become Supplier</div>
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

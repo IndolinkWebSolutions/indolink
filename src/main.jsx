@@ -5,20 +5,20 @@ import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
-// import { persistor, store } from "./slice/store.js";
-// import { PersistGate } from "redux-persist/integration/react";
-// import { Provider } from "react-redux";
+import { persistor, store } from "./slice/store.js";
+import { PersistGate } from "redux-persist/integration/react";
+import { Provider } from "react-redux";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-    <ScrollToTop />
+      <ScrollToTop />
       <AuthProvider>
-        {/* <Provider store={store}> */}
-          {/* <PersistGate loading={null} persistor={persistor}> */}
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
             <App />
-          {/* </PersistGate> */}
-        {/* </Provider> */}
+          </PersistGate>
+        </Provider>
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>,
