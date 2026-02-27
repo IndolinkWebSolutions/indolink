@@ -1,78 +1,77 @@
 import React, { useEffect, useState } from "react";
 import { History } from "lucide-react";
-import { getLeads } from "../api/index";
+import { getHistoryLeads } from "../api";
 import Sidebar from "./Sidebar";
 import DNavbar from "./DNavbar";
 
 const LeadsHistory = () => {
   const [leads, setLeads] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  // Fetch Leads
-  const fetchLeads = async () => {
+  const fetchLeadsHistory = async () => {
     try {
-      const res = await getLeads();
-
+      setLoading(true);
+      const res = await getHistoryLeads();
       setLeads(res.data);
     } catch (error) {
-      console.log(error);
+      console.log("History error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchLeads();
+    fetchLeadsHistory();
   }, []);
 
   return (
-    <div className="flex h-screen">
-      {/* Sidebar */}
-
+    <div className="flex h-screen bg-gray-100">
       <Sidebar />
 
       <div className="flex-1">
-        {/* Navbar */}
-
         <DNavbar />
 
-        {/* Content */}
-
         <div className="p-6">
-          {/* Heading */}
-
           <div className="flex items-center gap-2 mb-6">
             <History size={22} className="text-sky-600" />
-
             <h1 className="text-xl font-semibold">Leads History</h1>
           </div>
 
-          {/* Table */}
-
           <div className="bg-white shadow rounded-lg p-4 overflow-auto">
-            <table className="w-full">
+            <table className="w-full text-left">
               <thead>
-                <tr className="border-b text-left">
-                  <th className="py-3">Name</th>
-
-                  <th>Message</th>
-
+                <tr className="border-b">
+                  <th className="py-3">Product Name</th>
+                  <th>Company</th>
+                  <th>Email</th>
+                  <th>Phone No</th>
                   <th>Date</th>
                 </tr>
               </thead>
 
               <tbody>
-                {leads.length === 0 ? (
+                {loading ? (
                   <tr>
-                    <td colSpan="3" className="text-center py-5">
-                      No Leads Found
+                    <td colSpan="4" className="text-center py-5">
+                      Loading...
+                    </td>
+                  </tr>
+                ) : leads.length === 0 ? (
+                  <tr>
+                    <td colSpan="4" className="text-center py-5">
+                      No History Found
                     </td>
                   </tr>
                 ) : (
-                  leads.map((lead, i) => (
-                    <tr key={i} className="border-b">
+                  leads.map((lead) => (
+                    <tr key={lead.id} className="border-b">
                       <td className="py-3">{lead.name}</td>
-
-                      <td>{lead.message}</td>
-
-                      <td>{new Date(lead.createdAt).toLocaleDateString()}</td>
+                      <td>{lead.company}</td>
+                      <td>{lead.email}</td>
+                      <td>{lead.mobile_number}</td>
+                      <td>
+                        {new Date(lead.created_at).toLocaleDateString()}
+                      </td>
                     </tr>
                   ))
                 )}
