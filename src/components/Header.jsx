@@ -1,5 +1,5 @@
 import SearchBox from "./SearchBox";
-import logo from "../assets/logo.png";
+import logo from "../assets/logoo.png";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -27,7 +27,7 @@ function Header() {
         onClick={() => navigate("/")}
         className="flex items-center gap-2 cursor-pointer"
       >
-        <img src={logo} alt="Indolink" className="md:h-40 md:w-70 w-50" />
+        <img src={logo} alt="Indolink" className="md:h-30 md:w-50 w-50" />
       </div>
 
       {/* Search */}

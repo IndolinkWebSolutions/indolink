@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import TopBar from "./TopBar";
 import Header from "./Header";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import img from "../assets/log-in.png";
 import { checkEmail, resedPassword } from "../api/index";
+import { toast } from "react-toastify";
+import { Link } from "lucide-react";
 
 const ForgotPassword = () => {
   const [step, setStep] = useState(1);
@@ -16,7 +18,6 @@ const ForgotPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
 
   // STEP 1 → CHECK EMAIL
 
@@ -28,10 +29,10 @@ const ForgotPassword = () => {
       const res = await checkEmail({ email });
 
       setToken(res.data.token);
-      setMessage("Email Verified");
+      toast.success("Email Verified");
       setStep(2);
     } catch (error) {
-      setMessage("Email not found");
+      toast.error("Email not found");
     }
 
     setLoading(false);
@@ -41,27 +42,30 @@ const ForgotPassword = () => {
   const handlePasswordSubmit = async (e) => {
     e.preventDefault();
 
+    // Password match check
     if (password !== confirmPassword) {
-      setMessage("Passwords do not match");
+      toast.warning("Passwords do not match");
+      return;
+    }
+
+    // Password length check
+    if (password.length < 6) {
+      toast.warning("Password must be at least 6 characters");
       return;
     }
 
     setLoading(true);
 
     try {
-      console.log("Sending:", {
-        token: token,
-        password: password,
-      });
       await resedPassword({
         token: token,
         password: password,
       });
 
-      setMessage("Password Reset Successful");
+      toast.success("Password Reset Successful");
       setStep(3);
     } catch (error) {
-      setMessage("Error resetting password");
+      toast.error("Error resetting password");
     }
 
     setLoading(false);
@@ -88,14 +92,12 @@ const ForgotPassword = () => {
           {/* RIGHT FORM */}
 
           <div className="w-full md:w-1/2 p-10">
-            <h2 className="text-3xl font-bold mb-3">Forgot Password</h2>
-
+            <h2 className="text-3xl font-bold mb-6 text-center">
+              Forgot Password
+            </h2>
             {/* STEP 1 */}
-
             {step === 1 && (
               <form onSubmit={handleEmailSubmit}>
-                <p className="text-gray-500 mb-5">Enter Email</p>
-
                 <input
                   type="email"
                   value={email}
@@ -109,9 +111,7 @@ const ForgotPassword = () => {
                 </button>
               </form>
             )}
-
             {/* STEP 2 */}
-
             {step === 2 && (
               <form onSubmit={handlePasswordSubmit}>
                 <p className="text-gray-500 mb-5">Enter New Password</p>
@@ -120,6 +120,7 @@ const ForgotPassword = () => {
                   type="password"
                   placeholder="New Password"
                   value={password}
+                  minLength={6}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full border p-3 mb-4 rounded"
                 />
@@ -137,23 +138,18 @@ const ForgotPassword = () => {
                 </button>
               </form>
             )}
-
             {/* STEP 3 */}
-
             {step === 3 && (
-              <div className="text-center">
-                <h3 className="text-green-600 text-lg font-semibold">
-                  Password Reset Successful
-                </h3>
+              <div className="text-center space-y-2">
+                <p className="text-gray-500">Password reset successful</p>
 
-                <p className="text-gray-500 mt-3">Now you can login</p>
+                <Link
+                  to="/login"
+                  className="inline-block bg-sky-600 text-white px-6 py-2 rounded-lg hover:bg-sky-700 transition"
+                >
+                  Login Now
+                </Link>
               </div>
-            )}
-
-            {message && (
-              <p className="text-center mt-4 text-sm text-blue-600">
-                {message}
-              </p>
             )}
           </div>
         </div>

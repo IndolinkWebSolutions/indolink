@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import logo from "../assets/logo.png";
+import logo from "../assets/logoo.png";
 import { enquiryForm } from "../api";
 import { toast } from "react-toastify";
 
@@ -56,7 +56,7 @@ function Card({ setShow }) {
           <img
             src={logo}
             alt="Indolink Web Solutions Pvt. Ltd."
-            className="h-20 w-auto object-contain"
+            className="md:h-30 w-auto object-contain"
           />
         </div>
 

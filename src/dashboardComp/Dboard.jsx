@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CompanyProfile from "./CompanyProfile";
 import Dleads from "./Dleads";
 import { getSavedProducts } from "../api";
+import { FaBoxOpen } from "react-icons/fa6";
 
 const Dboard = () => {
   const [products, setProducts] = useState([]);
@@ -35,7 +36,7 @@ const Dboard = () => {
 
         {/* PRODUCTS SECTION */}
         <div className="bg-white rounded-lg shadow p-6 mt-8">
-          <h2 className="font-semibold mb-4">Your Products</h2>
+          <h2 className="font-semibold mb-4 text-blue-400 flex text-center"><FaBoxOpen className="mr-2" size={22} /> Your Products</h2>
 
           <table className="w-full text-left">
             <thead className="bg-gradient-to-r from-sky-600 to-indigo-600 text-white">

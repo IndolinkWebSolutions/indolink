@@ -72,9 +72,9 @@ const CompanyProfile = () => {
 
       <div className="flex items-center justify-between mb-4">
         <div className="flex">
-          <Building className="mr-2" />
+          <Building className="mr-2 text-sky-500" />
 
-          <h2 className="font-bold">Company Profile</h2>
+          <h2 className="font-semibold text-sky-500">Company Profile</h2>
         </div>
 
         {/* Add Button */}
