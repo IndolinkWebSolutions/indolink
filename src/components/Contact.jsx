@@ -8,6 +8,8 @@ import {
 } from "react-icons/fa";
 import { FaPhone } from "react-icons/fa6";
 import { toast } from "react-toastify";
+import { submitContact } from "../api/index";
+
 
 const Contact = () => {
   const [formData, setFormData] = useState({

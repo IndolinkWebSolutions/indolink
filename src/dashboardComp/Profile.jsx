@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import DNavbar from "./DNavbar";
 import { CgProfile } from "react-icons/cg";
-import { getProfile, updateProfile, updatePassword } from "../api/index.js";
-import { toast } from "react-toastify";
+import { getProfile } from "../api/index.js";
 
 const Profile = () => {
   const [profile, setProfile] = useState({
@@ -13,14 +12,6 @@ const Profile = () => {
     businessType: "",
     notificationPref: "",
   });
-
-  const [passwords, setPasswords] = useState({
-    current: "",
-    new: "",
-    confirm: "",
-  });
-
-  const [loading, setLoading] = useState(false);
 
   // FETCH PROFILE
   useEffect(() => {
@@ -33,44 +24,6 @@ const Profile = () => {
       setProfile(res.data);
     } catch (err) {
       console.error("Profile fetch failed", err);
-    }
-  };
-
-  // PROFILE CHANGE
-  const handleChange = (e) => {
-    setProfile({ ...profile, [e.target.name]: e.target.value });
-  };
-
-  // PASSWORD CHANGE
-  const handlePasswordChange = (e) => {
-    setPasswords({ ...passwords, [e.target.name]: e.target.value });
-  };
-
-  // SAVE PROFILE
-  const saveProfile = async () => {
-    setLoading(true);
-    try {
-      await updateProfile(profile);
-      toast.success("Profile Updated Successfully.");
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // UPDATE PASSWORD
-  const savePassword = async () => {
-    if (passwords.new !== passwords.confirm) {
-      return alert("Passwords do not match");
-    }
-
-    try {
-      await updatePassword(passwords);
-      toast.success("Password Updated.");
-      setPasswords({ current: "", new: "", confirm: "" });
-    } catch (err) {
-      console.error(err);
     }
   };
 

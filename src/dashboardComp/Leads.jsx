@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import DNavbar from "./DNavbar";
 import { getLeads, unlockLeadApi } from "../api";
+import { toast } from "react-toastify";
 
 const Leads = () => {
   const [leads, setLeads] = useState([]);
@@ -45,7 +46,7 @@ const Leads = () => {
         )
       );
     } catch (error) {
-      alert("Weekly limit exceeded or unable to unlock.");
+      toast.warning("Weekly limit exceeded or unable to unlock.");
     }
   };
 
@@ -60,8 +61,8 @@ const Leads = () => {
       <div className="flex-1 flex flex-col">
         <DNavbar />
 
-        <div className="p-6 overflow-auto">
-          <h1 className="text-2xl text-sky-800 font-semibold mb-6">
+        <div className="p-2 overflow-auto">
+          <h1 className="text-3xl text-sky-800 font-semibold m-6">
             All Leads
           </h1>
 

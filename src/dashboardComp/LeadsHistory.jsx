@@ -37,11 +37,11 @@ const LeadsHistory = () => {
             <h1 className="text-xl font-semibold">Leads History</h1>
           </div>
 
-          <div className="bg-white shadow rounded-lg p-4 overflow-auto">
-            <table className="w-full text-left">
-              <thead>
+          <div className=" shadow rounded-lg overflow-auto">
+            <table className="w-full text-left border-collapse">
+              <thead className="bg-gradient-to-r from-sky-600 to-indigo-600 pl-4 text-white">
                 <tr className="border-b">
-                  <th className="py-3">Product Name</th>
+                  <th className="py-3 p-4">Product Name</th>
                   <th>Company</th>
                   <th>Email</th>
                   <th>Phone No</th>

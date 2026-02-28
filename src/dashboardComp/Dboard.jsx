@@ -38,7 +38,7 @@ const Dboard = () => {
           <h2 className="font-semibold mb-4">Your Products</h2>
 
           <table className="w-full text-left">
-            <thead className="bg-gray-100">
+            <thead className="bg-gradient-to-r from-sky-600 to-indigo-600 text-white">
               <tr>
                 <th className="p-3">Product Name</th>
                 <th className="p-3">Category</th>

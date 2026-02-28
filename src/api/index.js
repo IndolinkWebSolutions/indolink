@@ -20,6 +20,11 @@ export const enquiryForm = (formData) => {
   return publicApi.post("enquiries/home-enquiry/", formData);
 };
 
+//Contct Form
+export const submitContact = (formData) => {
+  return publicApi.post("enquiries/contact/", formData);
+};
+
 // login
 export const login = (data) => {
   return publicApi.post("user/login/", data);
@@ -43,6 +48,7 @@ export const searchLeads = (q) => {
 export const getProductDetails = (slug) => {
   return publicApi.get(`/products/products/${slug}/`);
 };
+
 
 //===========================================================
 //============== only for authenticate user==================
@@ -100,7 +106,7 @@ export const getCompanyProfile = () => {
   return api.get("/dashboard/company-profile/");
 };
 
-// Leads                    
+// Leads
 export const getLeads = (pageSize = 20) => {
   return publicApi.get(`/leads/search/?page_size=${pageSize}`);
 };
@@ -123,7 +129,6 @@ export const getGroupedLeads = (slug) => {
 export const unlockLeadApi = (lead_id) => {
   return api.post(`leads/unlock/${lead_id}/`);
 };
-
 
 // Leads History (User Specific)
 export const getHistoryLeads = () => {

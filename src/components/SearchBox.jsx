@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function SearchBox() {
   const [query, setQuery] = useState("");
-  const [searchType, setSearchType] = useState("products"); // 👈 NEW
+  const [searchType, setSearchType] = useState("products"); 
   const [open, setOpen] = useState(false);
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -30,7 +30,6 @@ function SearchBox() {
         } else {
           response = await searchLeads(query);
           setResults(response.data?.results || []);
-          // leads has pagination
         }
       } catch (error) {
         console.error("Search error:", error);
@@ -40,10 +39,8 @@ function SearchBox() {
     }, 400);
 
     return () => clearTimeout(delay);
-  }, [query, searchType]); // 👈 dependency added
-
+  }, [query, searchType]);
   const handleRedirect = (item) => {
-    console.log(item); // check this
 
     if (searchType === "products") {
       navigate(`/products/${item.slug}`);

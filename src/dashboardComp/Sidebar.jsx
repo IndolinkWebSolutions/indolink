@@ -87,7 +87,7 @@ const Sidebar = ({ onClose }) => {
 
         <li
           onClick={handlelogout}
-          className="flex items-center gap-3 mt-6 bg-red-600 hover:bg-red-700 px-4 py-2 rounded"
+          className="flex items-center gap-3 mt-6 bg-red-500 hover:bg-red-600 px-4 py-2 rounded"
         >
           <RiLogoutCircleLine size={20} />
           Logout

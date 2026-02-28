@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import TopBar from "../components/TopBar";
@@ -10,8 +10,8 @@ import Navbar from "./Navbar.jsx";
 import { login } from "../api/index.js";
 import Footer from "./Footer.jsx";
 import { AuthContext } from "../context/AuthContext.jsx";
-import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();

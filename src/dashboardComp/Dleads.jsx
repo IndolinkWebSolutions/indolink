@@ -60,6 +60,8 @@ const Dleads = () => {
               <h3 className="font-medium text-blue-900">{lead.name}</h3>
 
               <p className="text-sm text-gray-900">{lead.requirements}</p>
+
+            
             </div>
           </div>
         ))}

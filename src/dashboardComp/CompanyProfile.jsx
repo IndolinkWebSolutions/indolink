@@ -79,7 +79,8 @@ const CompanyProfile = () => {
 
         {/* Add Button */}
 
-{!savedData?.company_name && !loading && (          <button
+        {!savedData?.company_name && !loading && (
+          <button
             onClick={() => setShowModal(true)}
             className="bg-sky-600 text-white px-3 py-2 rounded-lg"
           >
@@ -92,10 +93,10 @@ const CompanyProfile = () => {
 
       {savedData?.company_name && (
         <div className="bg-gray-50 rounded-xl p-5 space-y-3">
-          <div className="flex justify-between border-b pb-2">
+          <div className="flex justify-between border-b pb-2 ">
             <span>Company</span>
 
-            <span className="font-semibold">{savedData.company_name}</span>
+            <span className="font-semibold ">{savedData.company_name}</span>
           </div>
 
           <div className="flex justify-between border-b pb-2">
@@ -119,7 +120,7 @@ const CompanyProfile = () => {
           <div className="flex justify-between">
             <span>Type</span>
 
-            <span className="bg-sky-100 px-3 py-1 rounded">
+            <span className="bg-sky-100 px-3 py-1 rounded font-semibold">
               {savedData.business_type}
             </span>
           </div>
