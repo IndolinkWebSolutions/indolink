@@ -49,10 +49,22 @@ export const getProductDetails = (slug) => {
   return publicApi.get(`/products/products/${slug}/`);
 };
 
+//Check Email
+export const checkEmail = (email) => {
+  return publicApi.post("user/check-email/", email);
+};
+
+
+//Reset Password
+export const resedPassword = (password) => {
+  return publicApi.post("user/reset-password/", password);
+};
 
 //===========================================================
 //============== only for authenticate user==================
 //===========================================================
+
+
 
 // ADD product
 export const addProduct = (data) => {
